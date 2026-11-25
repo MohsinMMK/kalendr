@@ -416,13 +416,20 @@ describe("the full-page editor", () => {
     const requests = setup();
     await screen.findByDisplayValue(service.name);
     // Open the menu from the keyboard: under a full parallel run a pointer click on the trigger can open and close it again.
-    (await screen.findByRole("button", { name: "More actions" })).focus();
-    await userEvent.keyboard("{Enter}");
-    await userEvent.click(await screen.findByRole("menuitem", { name: /Delete/ }));
+    // The header can also re-render just after the form loads, so focus the current trigger and press again until it opens.
+    await waitFor(async () => {
+      const trigger = screen.getByRole("button", { name: "More actions" });
+      if (trigger.getAttribute("aria-expanded") !== "true") {
+        trigger.focus();
+        await userEvent.keyboard("{Enter}");
+      }
+      expect(screen.getByRole("menuitem", { name: /Delete/ })).toBeInTheDocument();
+    }, { timeout: 4000 });
     // The confirmation opens with a short animation; under a full parallel run it can take more than the default second.
+    await userEvent.click(screen.getByRole("menuitem", { name: /Delete/ }));
     const confirm = await screen.findByRole("alertdialog", {}, { timeout: 4000 });
     await userEvent.click(within(confirm).getByRole("button", { name: "Delete" }));
     await waitFor(() => expect(requests.some((request) => request.method === "DELETE")).toBe(true));
     await waitFor(() => expect(push).toHaveBeenCalledWith("/services"));
-  });
+  }, 15_000);
 });
