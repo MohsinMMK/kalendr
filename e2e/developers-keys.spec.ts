@@ -15,7 +15,7 @@ test("an owner makes an API key, sees it once, finds it by prefix and revokes it
   await page.context().setExtraHTTPHeaders({ "x-forwarded-for": `192.0.2.${testInfo.project.name === "phone" ? 141 : 41}` });
   await signIn(page, owner, undefined, "/settings");
   await page.getByRole("navigation", { name: "Settings sections" }).getByRole("button", { name: "Developers" }).click();
-  await expect(page.getByRole("heading", { level: 2, name: "Developers" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Developers" })).toBeVisible();
 
   const name = `Journey key ${unique()}`;
   await page.getByRole("button", { name: "Create key" }).first().click();

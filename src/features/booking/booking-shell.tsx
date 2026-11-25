@@ -31,6 +31,7 @@ export function BookingShell({
   topBar = true,
   profile,
   brand,
+  footerExtra,
   children,
 }: {
   clinicName?: string;
@@ -45,6 +46,8 @@ export function BookingShell({
   embedded?: boolean;
   /** The thin bar with the business name and Call button. Pages that already show the business themselves turn it off. */
   topBar?: boolean;
+  /** One more line in the footer, such as the visitor's analytics cookie choice. */
+  footerExtra?: ReactNode;
   children: ReactNode;
 }) {
   const resolved = profile ?? defaultBusinessProfile;
@@ -55,7 +58,7 @@ export function BookingShell({
       {/* The layout and time zone of the time screen live in the address (?layout=, ?tz=), so a shared link opens the same view. */}
       <NuqsAdapter>
       {/* overflow-x-clip: a step sliding in never widens the page on a phone. */}
-      <div className="flex min-h-screen flex-col overflow-x-clip bg-background text-foreground" style={brand ? brandStyle(brand) : undefined}>
+      <div className="group/shell flex min-h-screen flex-col overflow-x-clip bg-background text-foreground" style={brand ? brandStyle(brand) : undefined}>
         <a className="skip-link" href="#main-content">
           Skip to main content
         </a>
@@ -101,10 +104,12 @@ export function BookingShell({
         <main id="main-content" className={`mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-4 sm:px-6 sm:py-8 lg:px-8 ${embedded && !topBar ? "pt-14 sm:pt-14" : ""}`}>
           {children}
         </main>
-        <footer className="border-t">
-          <div className="mx-auto flex w-full max-w-6xl flex-col gap-0.5 px-4 py-4 text-muted-foreground text-xs sm:px-6 lg:px-8">
+        {/* Below 1024px the booking bar floats over the bottom of the screen, so the footer ends with room for it. */}
+        <footer className="border-t max-lg:group-has-[[data-slot=booking-bar]:not([data-bar-action])]/shell:pb-24 max-lg:group-has-[[data-bar-action]]/shell:pb-44">
+          <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-0.5 px-4 py-4 text-muted-foreground text-xs sm:px-6 lg:px-8">
             <p>{brand?.hideBadge ? null : "Scheduling by Kalendr."}{clinical ? " Kalendr is not an emergency service." : null}</p>
             {clinical ? <p>For urgent or emergency care, contact local emergency services.</p> : null}
+            {footerExtra}
           </div>
         </footer>
       </div>

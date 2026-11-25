@@ -27,8 +27,14 @@ async function setSubscription(plan: { key: string; status: string; trialDays?: 
 async function openBilling(page: Page): Promise<void> {
   await page.goto("/settings");
   await page.getByRole("button", { name: "Plan and billing" }).click();
-  await expect(page.getByRole("heading", { name: "Plan and billing", level: 2 })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Plan and billing", level: 1 })).toBeVisible();
 }
+
+// Every journey here changes the sample business's plan. Put it back even when one fails, so a later journey (or file)
+// never meets a Free plan that hides the second calendar.
+test.afterEach(async () => {
+  await setSubscription({ key: "growth", status: "trialing", trialDays: 14 });
+});
 
 test("the owner of a trial business sees the trial, compares plans and finds checkout not connected", async ({ page }, testInfo) => {
   await setSubscription({ key: "growth", status: "trialing", trialDays: 9 });
@@ -75,6 +81,5 @@ test("a plan that does not allow another calendar refuses it and the upgrade dia
   await expect(dialog.getByText(/Your Free plan includes 1 \S+ calendar. Starter includes 3./)).toBeVisible();
   await expectAccessible(page, testInfo, "upgrade dialog");
   await dialog.getByRole("button", { name: "See plans" }).click();
-  await expect(page.getByRole("heading", { name: "Plan and billing", level: 2 })).toBeVisible();
-  await setSubscription({ key: "growth", status: "trialing", trialDays: 14 });
+  await expect(page.getByRole("heading", { name: "Plan and billing", level: 1 })).toBeVisible();
 });

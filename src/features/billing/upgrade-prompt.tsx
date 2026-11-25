@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 
 import type { BillingPlanView, PlanLimitDetails } from "@/lib/billing-contracts";
@@ -30,8 +29,6 @@ export function useUpgradePrompt(): UpgradePrompt {
 /** Mounted once in the staff frame. `billingEnabled` is true for the owner on a real database: only then are the plans fetched. */
 export function UpgradePromptProvider({ children, billingEnabled, isOwner }: { children: ReactNode; billingEnabled: boolean; isOwner: boolean }) {
   const [details, setDetails] = useState<PlanLimitDetails | null>(null);
-  const router = useRouter();
-  const pathname = usePathname();
   const state = useBillingState(billingEnabled && details !== null);
   const plans = state.data?.plans ?? noPlans;
   const open = useCallback((next: PlanLimitDetails) => setDetails(next), []);
@@ -51,9 +48,8 @@ export function UpgradePromptProvider({ children, billingEnabled, isOwner }: { c
         onClose={() => setDetails(null)}
         onSeePlans={() => {
           setDetails(null);
+          // The staff frame hears this and opens /settings?section=billing, from any page. A second push here would race it.
           requestBillingSection();
-          // A sheet or task page can be open on top: leave it for the Settings page, which opens at the section asked for.
-          if (!pathname.startsWith("/settings")) router.push("/settings");
         }}
       />
     </UpgradePromptContext.Provider>

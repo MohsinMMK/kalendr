@@ -204,7 +204,8 @@ describe("the test booking panel", () => {
     expect(await screen.findByText(/Your confirmation was sent as a WhatsApp message/)).toBeVisible();
     expect(calls.filter((call) => call.url === "/api/staff/onboarding/test-booking")[0]?.body).toMatchObject({ since: expect.any(String) });
     expect(screen.getByRole("button", { name: "Remove test booking" })).toBeVisible();
-    expect(screen.getByRole("link", { name: "See it on the schedule" })).toHaveAttribute("href", "/schedule");
+    // It opens the booking's own day (11:00 in Kolkata on 1 December), not whatever day the schedule last showed.
+    expect(screen.getByRole("link", { name: "See it on the schedule" })).toHaveAttribute("href", "/schedule?date=2026-12-01");
   });
 
   it("says the confirmation is on its way once the provider has it", async () => {

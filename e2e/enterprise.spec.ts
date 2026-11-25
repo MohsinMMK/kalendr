@@ -58,7 +58,7 @@ async function journey(page: Page, testInfo: TestInfo, mark: string): Promise<vo
   await signIn(page, owner, undefined, "/settings");
   const nav = page.getByRole("navigation", { name: "Settings sections" });
   await nav.getByRole("button", { name: "Organisation" }).click();
-  await expect(page.getByRole("heading", { level: 2, name: "Organisation" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Organisation" })).toBeVisible();
 
   // A team, with a page of its own.
   const teamName = `Dermatology ${mark}`;

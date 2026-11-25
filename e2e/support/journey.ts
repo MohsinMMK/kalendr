@@ -56,6 +56,9 @@ function isKnownFinding(rule: string, node: { html: string; failureSummary?: str
 export async function expectAccessible(page: Page, testInfo: TestInfo, label: string, scope?: string): Promise<void> {
   // A screen fading in has partial opacity, which reads as low contrast. Scan the settled screen.
   await page.waitForFunction(() => document.getAnimations().every((animation) => animation.playState !== "running"), undefined, { timeout: 5_000 }).catch(() => {});
+  // A section change in the address re-runs the page's async metadata, so the tab title streams back a moment later.
+  // Scan once it is there; a page that never gets one still fails the scan below.
+  await page.waitForFunction(() => document.title.trim().length > 0, undefined, { timeout: 5_000 }).catch(() => {});
   const builder = new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]);
   const results = await (scope ? builder.include(scope) : builder).analyze();
   const blocking = results.violations
@@ -114,11 +117,21 @@ export async function answerCodeStep(page: Page, email: string): Promise<void> {
 }
 
 /**
+ * The app allows ten staff sign-ins per address and per email in fifteen minutes. Most journeys sign in as the same
+ * seeded owner from the same runner, so a CI shard of forty journeys would run out partway. Each sign-in here starts
+ * from empty counts in the disposable test database. No journey tests the limits; `src/server/rate-limit*.test.ts` do.
+ */
+async function clearRateLimits(): Promise<void> {
+  await withOwnerDatabase((sql) => sql`delete from rate_limit_buckets`);
+}
+
+/**
  * Staff sign-in. better-auth allows three sign-in attempts per ten seconds per address,
  * so a refused attempt waits out the window once before failing. An owner or admin is taken
  * through the second factor as well (enrolling it the first time).
  */
 export async function signIn(page: Page, email: string, password = staffPassword(email), next?: string): Promise<void> {
+  await clearRateLimits();
   for (let attempt = 0; attempt < 2; attempt += 1) {
     await page.goto(next ? `/sign-in?next=${encodeURIComponent(next)}` : "/sign-in");
     await page.getByLabel("Work email").fill(email);

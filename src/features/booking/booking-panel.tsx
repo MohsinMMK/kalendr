@@ -297,6 +297,9 @@ export function BookingPanelBar({ action, ...props }: BookingPanelProps & {
   const glance = props.lines.map((line) => line.value).join(" · ");
   return (
     <div
+      // The page footer reads these to keep its own last line clear of this bar.
+      data-slot="booking-bar"
+      data-bar-action={action ? "" : undefined}
       className={cn(
         "pointer-events-none fixed inset-x-0 z-30 flex justify-center lg:hidden",
         action ? "bottom-0" : "bottom-[max(--spacing(4),env(safe-area-inset-bottom))] px-4",

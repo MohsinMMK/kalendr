@@ -4,7 +4,7 @@ import { cache } from "react";
 
 import { BookingEmbedBridge } from "@/features/booking/booking-embed-bridge";
 import { BookingFlow } from "@/features/booking/booking-flow";
-import { TrackingPixels } from "@/features/booking/tracking-pixels";
+import { TrackingChoice, TrackingPixels } from "@/features/booking/tracking-pixels";
 import { publicTracking } from "@/server/embed-tracking";
 import { BookingShell } from "@/features/booking/booking-shell";
 import { canonicalFor, loadDiscoveryState } from "@/server/discovery";
@@ -57,7 +57,7 @@ export default async function ServiceBookingPage({ params, searchParams }: Servi
     <>
       {tracking ? <TrackingPixels clinicSlug={catalog.clinic.slug} clinicName={catalog.clinic.name} settings={tracking} /> : null}
       {bridge ? <BookingEmbedBridge nonce={bridge.nonce} parentOrigin={bridge.parentOrigin} /> : null}
-      <BookingShell topBar={false} clinicName={catalog.clinic.name} clinicPhone={catalog.clinic.phone} logoUrl={catalog.clinic.logoUrl} brand={catalog.clinic.brand} embedded={Boolean(bridge)} profile={catalog.profile}>
+      <BookingShell topBar={false} clinicName={catalog.clinic.name} clinicPhone={catalog.clinic.phone} logoUrl={catalog.clinic.logoUrl} brand={catalog.clinic.brand} embedded={Boolean(bridge)} profile={catalog.profile} footerExtra={tracking ? <TrackingChoice clinicSlug={catalog.clinic.slug} /> : null}>
         <BookingFlow
           clinic={catalog.clinic}
           locations={catalog.locations}

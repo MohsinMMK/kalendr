@@ -13,6 +13,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { toastManager } from "@/components/ui/toast";
 
 import { findTestBooking, useRemoveTestData, type OnboardingState, type TestBookingView } from "./queries/onboarding";
+import { clinicDateKey } from "./schedule-availability";
 import { useOptionalStaffSnapshot } from "./staff-snapshot-provider";
 
 const channelWords: Record<string, string> = { sms: "a text message", whatsapp: "a WhatsApp message", email: "an email", phone: "a call" };
@@ -164,7 +165,8 @@ export function TestBookingPanel({ open, onOpenChange, owner, slug }: {
           {view.found ? (
             <>
               <Button variant="outline" loading={remove.isPending} onClick={() => void removeIt()}><Trash2 aria-hidden="true" />Remove test booking</Button>
-              <Button render={<Link href="/schedule" />} onClick={() => onOpenChange(false)}>See it on the schedule</Button>
+              {/* Open the booking's own day: a phone shows one day at a time, and the first open time is often not today. */}
+              <Button render={<Link href={view.startsAt ? `/schedule?date=${clinicDateKey(view.startsAt)}` : "/schedule"} />} onClick={() => onOpenChange(false)}>See it on the schedule</Button>
             </>
           ) : started ? (
             <Button variant="outline" onClick={() => onOpenChange(false)}>Close</Button>

@@ -26,7 +26,7 @@ test("an owner picks a yellow accent, sees dark text on it in the preview and on
   });
   await signIn(page, owner, undefined, "/settings");
   await page.getByRole("navigation", { name: "Settings sections" }).getByRole("button", { name: "Logo, cover and colours" }).click();
-  await expect(page.getByRole("heading", { level: 2, name: "Logo, cover and colours" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Logo, cover and colours" })).toBeVisible();
 
   await page.getByRole("button", { name: "Use #f5b800" }).click();
   await expect(page.getByRole("status").filter({ hasText: "buttons use dark text" })).toBeVisible();

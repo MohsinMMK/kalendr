@@ -118,7 +118,7 @@ test("a new owner registers, takes the tour, makes a test booking, sees it on th
   });
 
   await panel.getByRole("link", { name: "See it on the schedule" }).click();
-  await expect(page).toHaveURL(/\/schedule/);
+  await expect(page).toHaveURL(/\/schedule\?date=\d{4}-\d{2}-\d{2}/);
   await expect(page.getByText("Neha Journey").first()).toBeVisible({ timeout: 20_000 });
   console.log(`From /start to the test booking on the schedule: ${Math.round((Date.now() - started) / 1000)} seconds (limit: 600).`);
   expect(Date.now() - started).toBeLessThan(600_000);

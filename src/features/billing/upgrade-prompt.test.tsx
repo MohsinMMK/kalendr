@@ -48,7 +48,8 @@ describe("upgrade dialog from a plan_limit error", () => {
     await waitFor(() => expect(within(dialog).getByText(/₹1,499 a month/)).toBeInTheDocument());
     await user.click(within(dialog).getByRole("button", { name: "See plans" }));
     expect(asked).toHaveBeenCalledTimes(1);
-    expect(navigation.push).toHaveBeenCalledWith("/settings");
+    // Only the frame navigates (to the billing section); the dialog adds no push of its own that could win the race.
+    expect(navigation.push).not.toHaveBeenCalled();
     off();
   });
 

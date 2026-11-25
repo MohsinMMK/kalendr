@@ -22,7 +22,7 @@ async function confirmStepUp(page: Page): Promise<void> {
 
 async function openApps(page: Page): Promise<void> {
   await page.getByRole("navigation", { name: "Settings sections" }).getByRole("button", { name: "Apps" }).click();
-  await expect(page.getByRole("heading", { level: 2, name: "Apps" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Apps" })).toBeVisible();
 }
 
 test("an owner finds Slack on the Apps page, connects it, and the key is kept sealed", async ({ page }, testInfo) => {

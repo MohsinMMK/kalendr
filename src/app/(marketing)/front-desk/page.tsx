@@ -68,7 +68,7 @@ export default function FrontDeskPage() {
       <Section id="queue" title="Walk-ins and the queue." lead="Someone arrives without a booking. They join the line like everyone else.">
         <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
           <PointGrid points={queuePoints} columns={2} />
-          <figure aria-label="The waiting-room screen: Now calling 12, please go to Chair 1; also called 11; next 13, 14 and 15." className="m-0">
+          <figure aria-label="The waiting-room screen: Now calling 12, please go to Chair 1; also called 11; next 13, 14 and 15." className="m-0 min-w-0">
             <Card>
               <CardPanel className="flex flex-col gap-4 p-6">
                 <div>
@@ -123,15 +123,15 @@ export default function FrontDeskPage() {
       <Section id="customers" title="Customer profiles." lead="Know who is on the other side of the booking.">
         <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
           <PointGrid points={customerPoints} columns={2} />
-          <figure aria-label="A Customers table with Client, Phone and a business's own Preferred stylist column." className="m-0">
+          <figure aria-label="A Customers table with Client, Phone and a business's own Preferred stylist column." className="m-0 min-w-0">
             <Card>
-              <CardPanel className="overflow-x-auto p-0">
+              <CardPanel className="p-0">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Client</TableHead>
-                      <TableHead>Phone</TableHead>
-                      <TableHead>Preferred stylist</TableHead>
+                      <TableHead className="whitespace-normal">Client</TableHead>
+                      <TableHead className="whitespace-normal">Phone</TableHead>
+                      <TableHead className="whitespace-normal">Preferred stylist</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -141,7 +141,7 @@ export default function FrontDeskPage() {
                       ["Arjun Rao", "090000 00003", "Meera Nair"],
                     ].map(([name, phone, stylist]) => (
                       <TableRow key={name}>
-                        <TableCell className="font-medium">{name}</TableCell>
+                        <TableCell className="whitespace-normal font-medium">{name}</TableCell>
                         <TableCell className="tabular-nums">{phone}</TableCell>
                         <TableCell><Badge variant="outline">{stylist}</Badge></TableCell>
                       </TableRow>

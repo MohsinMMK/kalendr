@@ -10,14 +10,24 @@ import { chooseCard, signIn, unique } from "./support/journey";
 
 const DAY = 86_400_000;
 
-async function listing(request: import("@playwright/test").APIRequestContext, ids: { locationId: string; serviceId: string; practitionerId?: string }) {
-  const from = new Date(Date.now() + 3 * DAY);
+type Ids = { locationId: string; serviceId: string; practitionerId?: string };
+
+async function listingFrom(request: import("@playwright/test").APIRequestContext, ids: Ids, from: Date) {
   const response = await request.get("/api/public/availability?" + new URLSearchParams({
     clinicSlug: "lotus-dental", locationId: ids.locationId, serviceId: ids.serviceId, practitionerId: ids.practitionerId ?? "first_available",
     from: from.toISOString(), to: new Date(from.getTime() + DAY).toISOString(),
   }));
   expect(response.status()).toBe(200);
   return (await response.json()).data.slots as Array<{ id: string; startsAt: string; endsAt: string; practitionerId: string }>;
+}
+
+/** The first day from three days ahead that has a few open times. The clinic is closed some days, such as weekends. */
+async function openDay(request: import("@playwright/test").APIRequestContext, ids: Ids): Promise<Date> {
+  for (let offset = 3; offset <= 10; offset += 1) {
+    const from = new Date(Date.now() + offset * DAY);
+    if ((await listingFrom(request, ids, from)).length > 2) return from;
+  }
+  throw new Error("No day with open times in the next ten days.");
 }
 
 test("a held time disappears for everyone else for five minutes and comes back when it is let go", async ({ page, playwright, baseURL }, testInfo) => {
@@ -34,6 +44,8 @@ test("a held time disappears for everyone else for five minutes and comes back w
   // A second visitor, with no sign-in, stands in for "someone else".
   const other = await playwright.request.newContext({ baseURL, extraHTTPHeaders: { "x-forwarded-for": "192.0.2.77" } });
   try {
+    const day = await openDay(other, ids);
+    const listing = (request: import("@playwright/test").APIRequestContext, which: Ids) => listingFrom(request, which, day);
     const slots = await listing(other, ids);
     expect(slots.length).toBeGreaterThan(2);
     // Two starts that do not touch, so letting one go gives that time back whatever the other holds.

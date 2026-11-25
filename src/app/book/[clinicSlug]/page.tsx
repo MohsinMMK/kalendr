@@ -4,7 +4,7 @@ import { cache } from "react";
 
 import { AssistantChat } from "@/features/booking/assistant-chat";
 import { BookingFlow } from "@/features/booking/booking-flow";
-import { TrackingPixels } from "@/features/booking/tracking-pixels";
+import { TrackingChoice, TrackingPixels } from "@/features/booking/tracking-pixels";
 import { publicTracking } from "@/server/embed-tracking";
 import { BookingShell } from "@/features/booking/booking-shell";
 import { BookingEmbedBridge } from "@/features/booking/booking-embed-bridge";
@@ -65,7 +65,7 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
       {bridge ? (
         <BookingEmbedBridge nonce={bridge.nonce} parentOrigin={bridge.parentOrigin} />
       ) : null}
-      <BookingShell topBar={false} clinicName={catalog.clinic.name} clinicPhone={catalog.clinic.phone} logoUrl={catalog.clinic.logoUrl} brand={catalog.clinic.brand} embedded={Boolean(bridge)} profile={catalog.profile}>
+      <BookingShell topBar={false} clinicName={catalog.clinic.name} clinicPhone={catalog.clinic.phone} logoUrl={catalog.clinic.logoUrl} brand={catalog.clinic.brand} embedded={Boolean(bridge)} profile={catalog.profile} footerExtra={tracking ? <TrackingChoice clinicSlug={catalog.clinic.slug} /> : null}>
         {hasClasses ? (
           <p className="mx-auto flex w-full max-w-6xl justify-end px-4 pb-2 text-sm">
             <Link href={`/book/${encodeURIComponent(clinicSlug)}/classes`} className="inline-flex min-h-11 items-center font-medium underline underline-offset-4">Class timetable</Link>

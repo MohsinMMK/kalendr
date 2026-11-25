@@ -7,7 +7,7 @@ const owner = "kalendr.owner@example.com";
 async function openWorkflows(page: Page): Promise<void> {
   await signIn(page, owner, undefined, "/settings");
   await page.getByRole("navigation", { name: "Settings sections" }).getByRole("button", { name: "Reminders and follow-ups" }).click();
-  await expect(page.getByRole("heading", { level: 2, name: "Reminders and follow-ups" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Reminders and follow-ups" })).toBeVisible();
   // A new business has none yet: turn on the standard set so there is a 24 hour reminder to change.
   const standardSet = page.getByRole("button", { name: "Turn on the standard set" });
   const list = page.getByText("Your workflows", { exact: true });

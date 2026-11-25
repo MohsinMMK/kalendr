@@ -8,7 +8,6 @@ import { ArrowRight, CalendarDays, CircleCheck, LockKeyhole } from "lucide-react
 import { SelectField } from "@/components/form-fields";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { useMediaQuery } from "@/hooks/use-media-query";
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Frame, FrameDescription, FrameFooter, FrameHeader, FramePanel, FrameTitle } from "@/components/ui/frame";
 import { Label } from "@/components/ui/label";
@@ -79,7 +78,6 @@ export function SettingsWorkspace() {
   const t = useTerms();
   const channels = channelDetails(t);
   const sections = useSettingsSections().all;
-  const wide = useMediaQuery("(min-width: 768px)");
   const { current, open: openAddress } = useSettingsSection();
   const section = current?.id;
   const [reminderStage, setReminderStage] = useState<"edit" | "review" | "result">("edit");
@@ -148,12 +146,11 @@ export function SettingsWorkspace() {
 
   return (
     <WorkspacePage title={current.title} description={current.description} headingId="settings-title">
-      {/* Phones have no room for the settings sidebar, so the sections sit in one row that scrolls sideways. */}
-      {!wide ? (
-        <nav aria-label="Settings sections" className="-mx-4 flex shrink-0 gap-1 overflow-x-auto px-4 [scrollbar-width:none]">
-          {sections.map((item) => <SettingsNavButton key={item.id} item={item} selected={section === item.id} onSelect={() => openSection(item.id)} />)}
-        </nav>
-      ) : null}
+      {/* Phones have no room for the settings sidebar, so the sections sit in one row that scrolls sideways. A CSS
+          breakpoint, not a media-query hook, hides it on wider screens, so the first paint never shows both navs. */}
+      <nav aria-label="Settings sections" className="-mx-4 flex shrink-0 gap-1 overflow-x-auto px-4 [scrollbar-width:none] min-[768px]:hidden">
+        {sections.map((item) => <SettingsNavButton key={item.id} item={item} selected={section === item.id} onSelect={() => openSection(item.id)} />)}
+      </nav>
           <div className="flex min-w-0 flex-col gap-4">
             {section === "business" ? <BusinessProfileSettings /> : null}
             {section === "sidebar" ? <SidebarEditor /> : null}

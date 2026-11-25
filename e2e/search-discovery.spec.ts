@@ -62,7 +62,7 @@ test("an owner lists the business, and search engines see it; switching it off h
 
   await signIn(page, owner, undefined, "/settings");
   await page.getByRole("navigation", { name: "Settings sections" }).getByRole("button", { name: "Find and share" }).click();
-  await expect(page.getByRole("heading", { level: 2, name: "Find and share" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Find and share" })).toBeVisible();
   await expect(page.getByText("Hidden from search engines")).toBeVisible();
   await page.getByRole("switch", { name: /find us on Google/ }).click();
   await page.getByLabel("Page title").fill("Lotus Dental, the gentle dentist");
