@@ -417,11 +417,14 @@ describe("the full-page editor", () => {
     await screen.findByDisplayValue(service.name);
     // Open the menu from the keyboard: under a full parallel run a pointer click on the trigger can open and close it again.
     // The header can also re-render just after the form loads, so focus the current trigger and press again until it opens.
+    // An open menu hides the page behind it from assistive tech, so look for the menu first and find the trigger even when hidden.
     await waitFor(async () => {
-      const trigger = screen.getByRole("button", { name: "More actions" });
-      if (trigger.getAttribute("aria-expanded") !== "true") {
-        trigger.focus();
-        await userEvent.keyboard("{Enter}");
+      if (!screen.queryByRole("menuitem", { name: /Delete/ })) {
+        const trigger = screen.getByRole("button", { name: "More actions", hidden: true });
+        if (trigger.getAttribute("aria-expanded") !== "true") {
+          trigger.focus();
+          await userEvent.keyboard("{Enter}");
+        }
       }
       expect(screen.getByRole("menuitem", { name: /Delete/ })).toBeInTheDocument();
     }, { timeout: 4000 });
