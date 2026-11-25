@@ -182,7 +182,8 @@ test("the view and date stay in the address, and the daily actions work from the
   await search.click();
   await search.pressSequentially("nt/?");
   await expect(search).toHaveValue("nt/?");
-  await expect(page).toHaveURL(/\/schedule/);
+  // The search reaches the address a moment after typing stops; a later address write would cancel the N below.
+  await expect(page).toHaveURL(/\/schedule\?.*q=nt/);
   await expect(page.getByRole("dialog")).toHaveCount(0);
 
   await page.locator("body").click({ position: { x: 5, y: 300 } });

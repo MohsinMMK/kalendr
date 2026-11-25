@@ -151,7 +151,7 @@ function Header({ detail, onBack }: { detail: ThreadDetail; onBack: (() => void)
       {onBack ? <Button variant="ghost" size="icon" onClick={onBack} aria-label="Back to conversations"><ArrowLeft aria-hidden="true" /></Button> : null}
       <div className="min-w-0 flex-1">
         <h2 className="truncate font-heading text-base font-semibold">
-          <Link href={`/patients?patient=${encodeURIComponent(thread.patientId)}`} className="underline-offset-4 hover:underline">{thread.patientName}</Link>
+          <Link href={`/patients?patient=${encodeURIComponent(thread.patientId)}`} className="inline-block min-h-6 max-w-full truncate align-top underline-offset-4 hover:underline">{thread.patientName}</Link>
         </h2>
         <p className="text-xs text-muted-foreground">
           {thread.assignedToUserId === null ? "Not assigned" : mine ? "Assigned to you" : "Assigned to a colleague"}
