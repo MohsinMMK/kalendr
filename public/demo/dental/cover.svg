@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="A bright dental clinic reception">
+  <rect width="1600" height="900" fill="#DDF1EC"/>
+  <rect y="610" width="1600" height="290" fill="#B9DDD4"/>
+  <rect y="604" width="1600" height="12" fill="#17544D" opacity=".18"/>
+  <!-- window -->
+  <g transform="translate(640 250)">
+    <rect width="320" height="250" rx="16" fill="#CFE6F5" stroke="#17544D" stroke-width="8"/>
+    <circle cx="232" cy="84" r="38" fill="#F6C453"/>
+    <path d="M0,196 C60,150 110,176 160,160 C220,140 270,170 320,150 V250 H0Z" fill="#9FD3C7"/>
+    <path d="M160,0 V250 M0,125 H320" stroke="#17544D" stroke-width="8"/>
+  </g>
+  <!-- poster -->
+  <g transform="translate(1085 270)">
+    <rect width="150" height="190" rx="10" fill="#FFFFFF" stroke="#17544D" stroke-width="7"/>
+    <g transform="translate(75 92) scale(.42)"><path d="M -90,-60 C -90,-115 -45,-125 0,-100 C 45,-125 90,-115 90,-60 C 90,-10 70,20 62,70 C 56,105 48,125 34,125 C 18,125 18,60 0,60 C -18,60 -18,125 -34,125 C -48,125 -56,105 -62,70 C -70,20 -90,-10 -90,-60 Z" fill="#DDF1EC" stroke="#17544D" stroke-width="16" stroke-linejoin="round"/></g>
+    <path d="M0,-24 C2,-8 8,-2 24,0 C8,2 2,8 0,24 C-2,8 -8,2 -24,0 C-8,-2 -2,-8 0,-24Z" fill="#F6C453" transform="translate(116 40) scale(.6)"/>
+  </g>
+  <!-- reception desk -->
+  <g transform="translate(150 430)">
+    <rect x="0" y="34" width="400" height="146" rx="12" fill="#FFFFFF" stroke="#17544D" stroke-width="8"/>
+    <rect x="-16" y="10" width="432" height="36" rx="12" fill="#2F9E8F" stroke="#17544D" stroke-width="8"/>
+    <rect x="34" y="78" width="332" height="68" rx="8" fill="#DDF1EC"/>
+    <g transform="translate(200 112) scale(.2)"><path d="M -90,-60 C -90,-115 -45,-125 0,-100 C 45,-125 90,-115 90,-60 C 90,-10 70,20 62,70 C 56,105 48,125 34,125 C 18,125 18,60 0,60 C -18,60 -18,125 -34,125 C -48,125 -56,105 -62,70 C -70,20 -90,-10 -90,-60 Z" fill="#2F9E8F"/></g>
+    <rect x="250" y="-64" width="96" height="66" rx="8" fill="#17544D"/>
+    <rect x="290" y="0" width="16" height="14" fill="#17544D"/>
+    <rect x="60" y="-22" width="70" height="30" rx="6" fill="#F28B6B" stroke="#17544D" stroke-width="6"/>
+  </g>
+  <!-- plant -->
+  <g transform="translate(1340 610)">
+    <path d="M0,-70 C-70,-120 -80,-200 -40,-250 C-10,-200 0,-140 0,-70Z" fill="#2F9E8F" stroke="#17544D" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M0,-70 C70,-110 96,-180 70,-236 C30,-196 6,-140 0,-70Z" fill="#57B8A8" stroke="#17544D" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M0,-70 C-10,-150 10,-230 22,-290 C52,-220 40,-140 0,-70Z" fill="#3FAE9C" stroke="#17544D" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M-52,-80 h104 l-14,80 h-76z" fill="#F28B6B" stroke="#17544D" stroke-width="7" stroke-linejoin="round"/>
+  </g>
+  <!-- chairs -->
+  <g transform="translate(1090 610)" stroke="#17544D" stroke-width="7" stroke-linejoin="round">
+    <rect x="-70" y="-150" width="140" height="92" rx="20" fill="#F6C453"/>
+    <rect x="-80" y="-66" width="160" height="34" rx="14" fill="#F6C453"/>
+    <path d="M-62,-32 v32 M62,-32 v32" stroke-linecap="round"/>
+  </g>
+  <!-- lamp -->
+  <g transform="translate(96 250)" stroke="#17544D" stroke-width="7" stroke-linejoin="round">
+    <path d="M0,-250 V0" stroke-linecap="round"/>
+    <path d="M-44,60 L-26,0 H26 L44,60Z" fill="#F6C453"/>
+  </g>
+</svg>

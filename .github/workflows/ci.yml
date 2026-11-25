@@ -1,0 +1,161 @@
+name: CI
+
+# Runs on every pull request and on main. Branch protection on main must require the
+# "Checks", "PostgreSQL 18 acceptance", "Browser journeys" and "Container image" jobs,
+# so a failing journey (double booking included) blocks the merge. See docs/OPERATIONS.md.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Never send anything to a real provider from CI.
+  SENTRY_DSN: ""
+  NEXT_PUBLIC_SENTRY_DSN: ""
+  OTEL_EXPORTER_OTLP_ENDPOINT: ""
+  NEXT_TELEMETRY_DISABLED: "1"
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      # The pnpm version comes from "packageManager" in package.json.
+      - uses: pnpm/action-setup@v4
+      # The Node version comes from "engines.node" in package.json.
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: package.json
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Unit tests
+        run: pnpm test
+      - name: Unused files, exports and dependencies
+        run: pnpm knip
+      - name: Dependency audit (fails on high or critical)
+        run: pnpm audit:deps
+
+  postgres18:
+    name: PostgreSQL 18 acceptance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: package.json
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # The same acceptance run as on a laptop: a disposable PostgreSQL 18.6 container,
+      # migrations as the owner role, the app as a non-owner role with forced row-level
+      # security, and the database integration tests.
+      - name: Migrations, isolation and integration tests
+        run: bash scripts/verify-postgres18.sh
+
+  journeys:
+    name: Browser journeys (${{ matrix.shard }}/8)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      # Every shard reports, so one failure shows the whole picture.
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+    services:
+      postgres:
+        image: postgres:18.6
+        env:
+          POSTGRES_PASSWORD: ci-throwaway-admin
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      # A superuser on the throwaway service. The app itself connects as a separate
+      # non-owner role with forced row-level security (scripts/e2e-database.mjs).
+      KALENDR_E2E_ADMIN_URL: postgresql://postgres:ci-throwaway-admin@127.0.0.1:5432/postgres
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: package.json
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Playwright version
+        id: playwright
+        run: echo "version=$(pnpm exec playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+      - name: Cache browsers
+        id: browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+      - name: Install browser
+        if: steps.browsers.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Install browser system libraries
+        if: steps.browsers.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium
+
+      # Each shard has its own service container, so its database is its own.
+      - name: Fresh database for the journeys
+        run: node scripts/e2e-database.mjs
+      - name: Journeys on desktop and phone, with accessibility scans
+        run: pnpm exec playwright test --shard=${{ matrix.shard }}/8
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.shard }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+
+  # One check for branch protection to require, whatever the shard count.
+  journeys-result:
+    name: Browser journeys
+    if: always()
+    needs: journeys
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Every shard passed
+        run: test "${{ needs.journeys.result }}" = success
+
+  image:
+    name: Container image
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      # Builds the same image a release uses (web, worker and migrate commands) without pushing it.
+      - name: Build the image
+        run: docker build --tag kalendr:ci .
+      - name: The image runs as a non-root user
+        run: test "$(docker run --rm --entrypoint id kalendr:ci -u)" != "0"
+      - name: The worker and migrate bundles are present
+        run: docker run --rm --entrypoint ls kalendr:ci dist/worker.mjs dist/migrate.mjs

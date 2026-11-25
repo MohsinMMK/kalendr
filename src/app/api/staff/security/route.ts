@@ -1,0 +1,16 @@
+import { dataResponse, routeErrorResponse } from "@/server/http";
+import { getStaffContext } from "@/server/staff-context";
+import { getSecuritySummary } from "@/server/staff-security-settings";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+/** What the Security screen needs: this person's factors, whether one is compulsory, and the business policy. */
+export async function GET(request: Request): Promise<Response> {
+  const requestId = crypto.randomUUID();
+  try {
+    return dataResponse(await getSecuritySummary(await getStaffContext(request.headers)));
+  } catch (error: unknown) {
+    return routeErrorResponse(error, "staff.security.read", requestId);
+  }
+}

@@ -1,0 +1,2 @@
+ALTER TABLE "media_assets" DROP CONSTRAINT "media_assets_kind_valid";--> statement-breakpoint
+ALTER TABLE "media_assets" ADD CONSTRAINT "media_assets_kind_valid" CHECK ("media_assets"."kind" in ('business_logo', 'business_cover', 'service', 'practitioner', 'staff_photo'));

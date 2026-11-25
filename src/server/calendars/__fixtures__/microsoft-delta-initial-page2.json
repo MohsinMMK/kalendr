@@ -1,0 +1,86 @@
+{
+  "@odata.context": "x",
+  "@odata.deltaLink": "https://graph.microsoft.com/v1.0/me/calendars/AAMkCal1/calendarView/delta?$deltatoken=tok1",
+  "value": [
+    {
+      "@odata.etag": "W/\"abc\"",
+      "id": "evD",
+      "start": {
+        "dateTime": "2026-11-25T06:30:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2026-11-25T07:30:00.0000000",
+        "timeZone": "UTC"
+      },
+      "isAllDay": false,
+      "isCancelled": false,
+      "showAs": "busy",
+      "responseStatus": {
+        "response": "declined"
+      },
+      "subject": "Private appointment",
+      "attendees": [
+        {
+          "emailAddress": {
+            "address": "someone@else.example"
+          }
+        }
+      ]
+    },
+    {
+      "@odata.etag": "W/\"abc\"",
+      "id": "evE",
+      "start": {
+        "dateTime": "2026-11-26T04:30:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2026-11-26T05:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "isAllDay": false,
+      "isCancelled": false,
+      "showAs": "busy",
+      "responseStatus": {
+        "response": "organizer"
+      },
+      "subject": "Private appointment",
+      "attendees": [
+        {
+          "emailAddress": {
+            "address": "someone@else.example"
+          }
+        }
+      ],
+      "type": "occurrence",
+      "seriesMasterId": "master1"
+    },
+    {
+      "@odata.etag": "W/\"abc\"",
+      "id": "evF",
+      "start": {
+        "dateTime": "2026-11-27T04:30:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2026-11-27T05:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "isAllDay": false,
+      "isCancelled": true,
+      "showAs": "busy",
+      "responseStatus": {
+        "response": "organizer"
+      },
+      "subject": "Private appointment",
+      "attendees": [
+        {
+          "emailAddress": {
+            "address": "someone@else.example"
+          }
+        }
+      ]
+    }
+  ]
+}

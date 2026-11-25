@@ -1,0 +1,19 @@
+import { staffCreateResourceSchema } from "@/server/contracts";
+import { parseJsonBody, dataResponse, routeErrorResponse } from "@/server/http";
+import { getStaffContext, requirePermission } from "@/server/staff-context";
+import { createStaffResource } from "@/server/staff-operations";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+export async function POST(request: Request): Promise<Response> {
+  const requestId = crypto.randomUUID();
+  try {
+    const context = await getStaffContext(request.headers);
+    requirePermission(context, "settings.manage");
+    const input = await parseJsonBody(request, staffCreateResourceSchema);
+    return dataResponse(await createStaffResource(context, input), 201);
+  } catch (error: unknown) {
+    return routeErrorResponse(error, "staff.resource.create", requestId);
+  }
+}

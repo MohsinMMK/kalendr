@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="A dental implant: a crown on a small post">
+  <rect width="800" height="600" fill="#E8E6F8"/>
+  <circle cx="400" cy="300" r="215" fill="#D9D5F3"/>
+  <circle cx="140" cy="130" r="44" fill="#D9D5F3"/>
+  <circle cx="676" cy="486" r="56" fill="#D9D5F3"/>
+  <path d="M185,330 C260,300 320,318 400,318 C480,318 540,300 615,330 L615,372 C540,350 480,366 400,366 C320,366 260,350 185,372 Z" fill="#F4A9A0" stroke="#17544D" stroke-width="7" stroke-linejoin="round"/>
+  <g transform="translate(400 420)">
+    <path d="M-34,-70 h68 l-12,150 a22,22 0 0 1 -44,0 z" fill="#C9D3DD" stroke="#17544D" stroke-width="7" stroke-linejoin="round"/>
+    <g stroke="#17544D" stroke-width="6" stroke-linecap="round">
+      <path d="M-38,-34 l72,-14"/><path d="M-35,0 l66,-14"/><path d="M-32,34 l60,-14"/><path d="M-29,68 l54,-14"/>
+    </g>
+  </g>
+  <rect x="378" y="296" width="44" height="58" rx="8" fill="#AEBBC8" stroke="#17544D" stroke-width="7"/>
+  <g transform="translate(400 205)">
+    <path d="M-92,-40 C-92,-96 -46,-106 0,-82 C46,-106 92,-96 92,-40 C92,10 78,58 60,86 L-60,86 C-78,58 -92,10 -92,-40Z" fill="#17544D" opacity=".12" transform="translate(8 10)"/>
+    <path d="M-92,-40 C-92,-96 -46,-106 0,-82 C46,-106 92,-96 92,-40 C92,10 78,58 60,86 L-60,86 C-78,58 -92,10 -92,-40Z" fill="#FFFFFF" stroke="#17544D" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M-64,-42 C-62,-66 -46,-74 -28,-70" fill="none" stroke="#D9D5F3" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <g fill="#F6C453">
+    <path d="M0,-24 C2,-8 8,-2 24,0 C8,2 2,8 0,24 C-2,8 -8,2 -24,0 C-8,-2 -2,-8 0,-24Z" transform="translate(575 150) scale(1.4)"/>
+    <path d="M0,-24 C2,-8 8,-2 24,0 C8,2 2,8 0,24 C-2,8 -8,2 -24,0 C-8,-2 -2,-8 0,-24Z" transform="translate(225 225) scale(.9)"/>
+  </g>
+</svg>

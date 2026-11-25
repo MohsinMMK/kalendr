@@ -1,0 +1,6 @@
+{
+  "kind": "calendar#event",
+  "etag": "\"3181161784712000\"",
+  "id": "abc123evt",
+  "status": "confirmed"
+}

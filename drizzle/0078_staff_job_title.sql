@@ -1,0 +1,1 @@
+ALTER TABLE "memberships" ADD COLUMN "job_title" varchar(80);

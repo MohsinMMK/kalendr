@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "kalendr/booking",
+	"title": "Kalendr booking",
+	"category": "widgets",
+	"icon": "calendar-alt",
+	"description": "Shows your Kalendr booking page, one service, or a booking button.",
+	"textdomain": "kalendr-booking",
+	"attributes": {
+		"service": { "type": "string", "default": "" },
+		"mode": { "type": "string", "default": "inline", "enum": [ "inline", "popup", "floating" ] },
+		"label": { "type": "string", "default": "Book an appointment" }
+	},
+	"supports": { "html": false },
+	"editorScript": "file:./editor.js"
+}

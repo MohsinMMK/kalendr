@@ -1,0 +1,5 @@
+First name,Last name,Mobile,Email
+Asha,Import{{tag}},098 {{base}} 01,asha.{{tag}}@example.com
+Ravi,Import{{tag}},+91 98{{base}}02,ravi.{{tag}}@example.com
+Asha,Again{{tag}},98{{base}}01,
+Bad,Row{{tag}},12,not-an-email

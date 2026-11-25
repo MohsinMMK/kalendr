@@ -1,0 +1,20 @@
+/* One look for every marketing demo. Wrap a demo in .mk-demo and the kit's
+   tokens map onto the app's, so a faux screen reads as this product. Each demo
+   keeps its own layout in its own CSS file, scoped under its own class. */
+.mk-demo .ss-stage {
+  --ss-font: var(--font-sans);
+  --ss-accent: var(--primary);
+  --ss-accent-soft: color-mix(in srgb, var(--primary) 10%, transparent);
+  --ss-radius-sm: var(--radius-sm);
+  --ss-radius-md: var(--radius-md);
+  --ss-radius-lg: var(--radius-lg);
+  --ss-success: var(--success);
+  /* The kit's grey text is a little under 4.5:1 on its surfaces; the app's own text tokens pass. */
+  --ss-text: var(--muted-foreground);
+  --ss-text-faint: var(--muted-foreground);
+  --ss-text-strong: var(--foreground);
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  box-shadow: inset 0 0 0 1px var(--border);
+  background: var(--ss-well);
+}

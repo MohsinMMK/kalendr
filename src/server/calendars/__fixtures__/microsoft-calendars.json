@@ -1,0 +1,17 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users('x')/calendars",
+  "value": [
+    {
+      "id": "AAMkCal1",
+      "name": "Calendar",
+      "isDefaultCalendar": true,
+      "canEdit": true
+    },
+    {
+      "id": "AAMkCal2",
+      "name": "Birthdays",
+      "isDefaultCalendar": false,
+      "canEdit": false
+    }
+  ]
+}

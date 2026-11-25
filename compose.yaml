@@ -1,0 +1,147 @@
+name: kalendr
+
+services:
+  postgres:
+    image: postgres:18.6
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-kalendr}
+      POSTGRES_USER: ${POSTGRES_USER:-kalendr}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD for local development}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    volumes:
+      - kalendr_postgres_data:/var/lib/postgresql
+
+  # The container image, built from the Dockerfile. Start it with
+  #   docker compose --profile app up --build
+  # after the database has its roles and migrations (docs/OPERATIONS.md). Secrets come from
+  # your shell or a local .env file and are never written into the image. A missing one is not
+  # caught here: the app itself stops at start-up and names it.
+  app:
+    profiles: ["app"]
+    build: .
+    image: kalendr:local
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${KALENDR_APP_DATABASE_URL:-}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      KALENDR_RECORDS_KEY: ${KALENDR_RECORDS_KEY:-}
+      KALENDR_KEY_PROVIDER: ${KALENDR_KEY_PROVIDER:-}
+      KALENDR_LOCAL_MASTER_KEY: ${KALENDR_LOCAL_MASTER_KEY:-}
+      KMS_KEY_ID: ${KMS_KEY_ID:-}
+      KMS_REGION: ${KMS_REGION:-}
+      KALENDR_FILE_STORE: ${KALENDR_FILE_STORE:-disk}
+      S3_ENDPOINT: ${S3_ENDPOINT:-}
+      S3_REGION: ${S3_REGION:-}
+      S3_BUCKET: ${S3_BUCKET:-}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-}
+      S3_FORCE_PATH_STYLE: ${S3_FORCE_PATH_STYLE:-false}
+      CLAMAV_HOST: ${CLAMAV_HOST:-}
+      CLAMAV_PORT: ${CLAMAV_PORT:-3310}
+      # Production start-up requires it. Set it to the proxies in front of the app; with none,
+      # as here on 127.0.0.1, the address falls back to the socket's.
+      TRUSTED_PROXY_HOPS: ${TRUSTED_PROXY_HOPS:-1}
+      TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:-}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
+      SENTRY_DSN: ${SENTRY_DSN:-}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
+      DEPLOYMENT_VERSION: ${DEPLOYMENT_VERSION:-local}
+    ports:
+      - "127.0.0.1:${KALENDR_APP_PORT:-3000}:3000"
+
+  # The outbox worker from the same image, in local capture mode: it records messages and sends
+  # nothing. That mode insists on a loopback database address, so it shares the database
+  # container's network. It connects as the worker role, which has no BYPASSRLS.
+  worker:
+    profiles: ["app"]
+    image: kalendr:local
+    restart: unless-stopped
+    command: ["node", "dist/worker.mjs"]
+    network_mode: "service:postgres"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      app:
+        condition: service_started
+    environment:
+      NODE_ENV: development
+      KALENDR_WORKER_MODE: local_capture
+      WORKER_DATABASE_URL: ${KALENDR_WORKER_DATABASE_URL:-}
+      WORKER_CONCURRENCY: ${WORKER_CONCURRENCY:-4}
+      KALENDR_RECORDS_KEY: ${KALENDR_RECORDS_KEY:-}
+      KALENDR_KEY_PROVIDER: ${KALENDR_KEY_PROVIDER:-}
+      KALENDR_LOCAL_MASTER_KEY: ${KALENDR_LOCAL_MASTER_KEY:-}
+      KMS_KEY_ID: ${KMS_KEY_ID:-}
+      KMS_REGION: ${KMS_REGION:-}
+      KALENDR_FILE_STORE: ${KALENDR_FILE_STORE:-disk}
+      S3_ENDPOINT: ${S3_ENDPOINT:-}
+      S3_REGION: ${S3_REGION:-}
+      S3_BUCKET: ${S3_BUCKET:-}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-}
+      S3_FORCE_PATH_STYLE: ${S3_FORCE_PATH_STYLE:-false}
+      CLAMAV_HOST: ${CLAMAV_HOST:-}
+      CLAMAV_PORT: ${CLAMAV_PORT:-3310}
+      SENTRY_DSN: ${SENTRY_DSN:-}
+
+  # The release step: docker compose --profile release run --rm migrate
+  migrate:
+    profiles: ["release"]
+    image: kalendr:local
+    command: ["node", "dist/migrate.mjs"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_OWNER_URL: ${DATABASE_OWNER_URL:-}
+      KALENDR_RUNTIME_ROLE: ${KALENDR_RUNTIME_ROLE:-kalendr_app}
+      KALENDR_WORKER_ROLE: ${KALENDR_WORKER_ROLE:-kalendr_worker}
+
+  # Protected storage for development (feature 10): docker compose --profile storage up -d
+  # S3-compatible file store. Files arrive already encrypted. Its root login is S3_ACCESS_KEY_ID
+  # and S3_SECRET_ACCESS_KEY from your .env (git-ignored); MinIO will not start without them.
+  # Set the bucket up once: node scripts/s3-bucket.mjs
+  # The MinIO project no longer publishes images on Docker Hub; this is Chainguard's build.
+  minio:
+    profiles: ["storage"]
+    image: cgr.dev/chainguard/minio:latest
+    restart: unless-stopped
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY_ID:-}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_ACCESS_KEY:-}
+    ports:
+      - "127.0.0.1:${MINIO_PORT:-9000}:9000"
+      - "127.0.0.1:${MINIO_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - kalendr_minio_data:/data
+
+  # Virus scanner for uploads (clamd). The first start downloads signatures and takes a few
+  # minutes. clamav/clamav-debian also has arm64 images; clamav/clamav does not.
+  clamav:
+    profiles: ["storage"]
+    image: clamav/clamav-debian:1.4
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${CLAMAV_PORT:-3310}:3310"
+    volumes:
+      - kalendr_clamav_data:/var/lib/clamav
+
+volumes:
+  kalendr_postgres_data:
+  kalendr_minio_data:
+  kalendr_clamav_data:

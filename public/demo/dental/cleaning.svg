@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="A clean tooth with a toothbrush">
+  <rect width="800" height="600" fill="#DDF1EC"/>
+  <circle cx="400" cy="300" r="215" fill="#C5E7DF"/>
+  <circle cx="150" cy="120" r="46" fill="#C5E7DF"/>
+  <circle cx="680" cy="500" r="60" fill="#C5E7DF"/>
+  <g transform="translate(385 300) scale(1.35)">
+    <path d="M -90,-60 C -90,-115 -45,-125 0,-100 C 45,-125 90,-115 90,-60 C 90,-10 70,20 62,70 C 56,105 48,125 34,125 C 18,125 18,60 0,60 C -18,60 -18,125 -34,125 C -48,125 -56,105 -62,70 C -70,20 -90,-10 -90,-60 Z" fill="#17544D" opacity=".12" transform="translate(8 10)"/>
+    <path d="M -90,-60 C -90,-115 -45,-125 0,-100 C 45,-125 90,-115 90,-60 C 90,-10 70,20 62,70 C 56,105 48,125 34,125 C 18,125 18,60 0,60 C -18,60 -18,125 -34,125 C -48,125 -56,105 -62,70 C -70,20 -90,-10 -90,-60 Z" fill="#FFFFFF" stroke="#17544D" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M -62,-62 C -60,-88 -42,-96 -24,-92" fill="none" stroke="#BFE0D9" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(520 395) rotate(-38)">
+    <rect x="-150" y="-13" width="230" height="26" rx="13" fill="#F28B6B" stroke="#17544D" stroke-width="6"/>
+    <rect x="76" y="-17" width="92" height="34" rx="12" fill="#FFFFFF" stroke="#17544D" stroke-width="6"/>
+    <g stroke="#2F9E8F" stroke-width="9" stroke-linecap="round">
+      <path d="M92,-20 v-30"/><path d="M110,-20 v-34"/><path d="M128,-20 v-34"/><path d="M146,-20 v-30"/>
+    </g>
+  </g>
+  <g fill="#F6C453">
+    <path d="M0,-24 C2,-8 8,-2 24,0 C8,2 2,8 0,24 C-2,8 -8,2 -24,0 C-8,-2 -2,-8 0,-24Z" transform="translate(560 150) scale(1.5)"/>
+    <path d="M0,-24 C2,-8 8,-2 24,0 C8,2 2,8 0,24 C-2,8 -8,2 -24,0 C-8,-2 -2,-8 0,-24Z" transform="translate(215 235) scale(1.1)"/>
+    <path d="M0,-24 C2,-8 8,-2 24,0 C8,2 2,8 0,24 C-2,8 -8,2 -24,0 C-8,-2 -2,-8 0,-24Z" transform="translate(250 450) scale(.8)"/>
+  </g>
+  <g fill="#FFFFFF" stroke="#2F9E8F" stroke-width="5">
+    <circle cx="610" cy="262" r="15"/><circle cx="646" cy="226" r="9"/><circle cx="196" cy="330" r="10"/>
+  </g>
+</svg>

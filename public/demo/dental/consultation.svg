@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="A clipboard with a first-visit checklist">
+  <rect width="800" height="600" fill="#FCEBD9"/>
+  <circle cx="400" cy="300" r="215" fill="#F9DCC0"/>
+  <circle cx="130" cy="480" r="52" fill="#F9DCC0"/>
+  <circle cx="690" cy="110" r="44" fill="#F9DCC0"/>
+  <g transform="translate(360 305) rotate(-4)">
+    <rect x="-122" y="-158" width="260" height="336" rx="22" fill="#17544D" opacity=".12"/>
+    <rect x="-130" y="-168" width="260" height="336" rx="22" fill="#FFFFFF" stroke="#17544D" stroke-width="7"/>
+    <rect x="-52" y="-190" width="104" height="46" rx="14" fill="#2F9E8F" stroke="#17544D" stroke-width="7"/>
+    <g transform="translate(-72 -92) scale(.3)"><path d="M -90,-60 C -90,-115 -45,-125 0,-100 C 45,-125 90,-115 90,-60 C 90,-10 70,20 62,70 C 56,105 48,125 34,125 C 18,125 18,60 0,60 C -18,60 -18,125 -34,125 C -48,125 -56,105 -62,70 C -70,20 -90,-10 -90,-60 Z" fill="#DDF1EC" stroke="#17544D" stroke-width="20" stroke-linejoin="round"/></g>
+    <path d="M-30,-104 h124 M-30,-80 h84" stroke="#C9D8D5" stroke-width="12" stroke-linecap="round"/>
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#2F9E8F" stroke-width="9">
+        <path d="M-96,-12 l12,12 l22,-26"/><path d="M-96,50 l12,12 l22,-26"/>
+      </g>
+      <rect x="-100" y="96" width="34" height="34" rx="8" stroke="#C9D8D5" stroke-width="7"/>
+      <g stroke="#C9D8D5" stroke-width="12">
+        <path d="M-40,-8 h134"/><path d="M-40,54 h110"/><path d="M-40,114 h126"/>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(575 215)">
+    <path d="M-78,-64 h156 a26,26 0 0 1 26,26 v64 a26,26 0 0 1 -26,26 h-92 l-40,36 v-36 h-24 a26,26 0 0 1 -26,-26 v-64 a26,26 0 0 1 26,-26z" fill="#F28B6B" stroke="#17544D" stroke-width="7" stroke-linejoin="round"/>
+    <g fill="#FFFFFF"><circle cx="-44" cy="-6" r="11"/><circle cx="0" cy="-6" r="11"/><circle cx="44" cy="-6" r="11"/></g>
+  </g>
+  <path d="M0,-24 C2,-8 8,-2 24,0 C8,2 2,8 0,24 C-2,8 -8,2 -24,0 C-8,-2 -2,-8 0,-24Z" fill="#F6C453" transform="translate(205 150) scale(1.2)"/>
+</svg>

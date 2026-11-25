@@ -1,0 +1,45 @@
+{
+  "kind": "calendar#events",
+  "timeZone": "Asia/Kolkata",
+  "nextSyncToken": "sync-token-A",
+  "items": [
+    {
+      "kind": "calendar#event",
+      "id": "evt4",
+      "status": "confirmed",
+      "summary": "Board lunch",
+      "attendees": [
+        {
+          "email": "asha.rao@gmail.example",
+          "self": true,
+          "responseStatus": "declined"
+        },
+        {
+          "email": "cfo@corp.example",
+          "responseStatus": "accepted"
+        }
+      ],
+      "start": {
+        "dateTime": "2026-11-25T12:00:00+05:30"
+      },
+      "end": {
+        "dateTime": "2026-11-25T13:00:00+05:30"
+      }
+    },
+    {
+      "kind": "calendar#event",
+      "id": "series1_20261126T043000Z",
+      "status": "confirmed",
+      "recurringEventId": "series1",
+      "summary": "Weekly standup",
+      "start": {
+        "dateTime": "2026-11-26T10:00:00+05:30",
+        "timeZone": "Asia/Kolkata"
+      },
+      "end": {
+        "dateTime": "2026-11-26T10:30:00+05:30",
+        "timeZone": "Asia/Kolkata"
+      }
+    }
+  ]
+}

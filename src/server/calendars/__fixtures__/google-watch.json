@@ -1,0 +1,8 @@
+{
+  "kind": "api#channel",
+  "id": "chan-uuid",
+  "resourceId": "o3hgv1AppC-dxxPQ8s_w7ZoQ",
+  "resourceUri": "https://www.googleapis.com/calendar/v3/calendars/primary/events?alt=json",
+  "token": "shared-secret",
+  "expiration": "1795500000000"
+}

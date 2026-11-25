@@ -1,0 +1,272 @@
+/* The setup intro's demo. Everything is scoped to .ob-demo, and the app's
+   tokens are mapped onto the kit's so the faux UI reads as this product. */
+.ob-demo .ss-stage {
+  --ss-font: var(--font-sans);
+  --ss-accent: var(--primary);
+  --ss-accent-soft: color-mix(in srgb, var(--primary) 10%, transparent);
+  --ss-radius-sm: var(--radius-sm);
+  --ss-radius-md: var(--radius-md);
+  --ss-radius-lg: var(--radius-lg);
+  --ss-success: var(--success);
+  --gutter: 28px;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  box-shadow: inset 0 0 0 1px var(--border);
+  background: var(--ss-well);
+}
+
+/* ---- The owner's Today: pinned top-left, runs off the bottom ---- */
+
+.ob-window {
+  position: absolute;
+  top: var(--gutter);
+  left: var(--gutter);
+  width: 470px;
+  height: 380px;
+  box-shadow: var(--ss-shadow-hero);
+}
+
+.ob-side {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 10px;
+}
+
+.ob-side__name {
+  overflow: hidden;
+  margin: 0 0 10px 6px;
+  color: var(--ss-text-strong);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ob-side__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 6px;
+}
+
+.ob-side__item[data-active] {
+  background: var(--ss-surface);
+  box-shadow: 0 0 0 1px var(--ss-line);
+}
+
+.ob-today {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 16px 16px;
+}
+
+.ob-today__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 10px;
+  height: 28px;
+  margin-bottom: 6px;
+}
+
+.ob-today__title {
+  color: var(--ss-text-strong);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ob-count {
+  display: inline-flex;
+  gap: 3px;
+  color: var(--ss-text);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ob-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 8px;
+  border-top: 1px solid var(--ss-line-faint);
+}
+
+.ob-row[data-fresh] {
+  border-radius: 8px;
+  border-top-color: transparent;
+  background: var(--ss-accent-soft);
+}
+
+.ob-row__time {
+  width: 34px;
+  color: var(--ss-text);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ob-row[data-fresh] .ob-row__time {
+  color: var(--ss-text-strong);
+  font-weight: 600;
+}
+
+.ob-row__who {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.ob-row__service {
+  overflow: hidden;
+  color: var(--ss-text);
+  font-size: 10.5px;
+  line-height: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ob-new {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--ss-accent);
+  color: var(--primary-foreground);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* ---- The customer's phone: right of the window, runs off the bottom.
+   Its screen is laid out in iPhone points and scaled with the frame. ---- */
+
+.ob-phone {
+  position: absolute;
+  top: 18px;
+  right: 40px;
+}
+
+.ob-page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 66px 18px 0;
+  background: var(--ss-canvas);
+}
+
+.ob-page__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ob-page__name {
+  overflow: hidden;
+  color: var(--ss-text-strong);
+  font-size: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ob-service {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--ss-surface);
+  box-shadow: 0 0 0 1px var(--ss-line), var(--ss-shadow-card);
+}
+
+.ob-service__name {
+  overflow: hidden;
+  color: var(--ss-text-strong);
+  font-size: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ob-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  margin-top: 4px;
+  border-radius: 14px;
+  background: var(--ss-accent);
+  color: var(--primary-foreground);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.ob-btn--wide {
+  margin-top: 12px;
+  transition: opacity 0.25s ease, background-color 0.3s ease;
+}
+
+.ob-btn--wide:not([data-ready]) {
+  opacity: 0.45;
+}
+
+.ob-btn--wide[data-phase="booked"] {
+  background: var(--success);
+}
+
+.ob-times__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.ob-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px var(--ss-ink-4);
+  color: var(--ss-text-strong);
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ob-chip[data-on] {
+  background: var(--ss-accent);
+  box-shadow: none;
+  color: var(--primary-foreground);
+}
+
+.ob-page__more {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 6px 0;
+}
+
+/* ---- Narrow: no sidebar; the window runs off the right, the phone stands over its lower right ---- */
+
+.ob-demo .ss-stage[data-layout="compact"] {
+  --gutter: 16px;
+}
+
+.ob-demo .ss-stage[data-layout="compact"] .ob-window {
+  width: 326px;
+  height: 236px;
+}
+
+.ob-demo .ss-stage[data-layout="compact"] .ob-row {
+  height: 40px;
+}
+
+.ob-demo .ss-stage[data-layout="compact"] .ob-phone {
+  top: 208px;
+  right: 16px;
+}

@@ -1,0 +1,84 @@
+{
+  "@odata.context": "x",
+  "@odata.nextLink": "https://graph.microsoft.com/v1.0/me/calendars/AAMkCal1/calendarView/delta?$skiptoken=page2",
+  "value": [
+    {
+      "@odata.etag": "W/\"abc\"",
+      "id": "evA",
+      "start": {
+        "dateTime": "2026-11-20T04:30:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2026-11-20T05:30:00.0000000",
+        "timeZone": "UTC"
+      },
+      "isAllDay": false,
+      "isCancelled": false,
+      "showAs": "busy",
+      "responseStatus": {
+        "response": "organizer"
+      },
+      "subject": "Private appointment",
+      "attendees": [
+        {
+          "emailAddress": {
+            "address": "someone@else.example"
+          }
+        }
+      ]
+    },
+    {
+      "@odata.etag": "W/\"abc\"",
+      "id": "evB",
+      "start": {
+        "dateTime": "2026-11-21T00:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2026-11-22T00:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "isAllDay": true,
+      "isCancelled": false,
+      "showAs": "busy",
+      "responseStatus": {
+        "response": "organizer"
+      },
+      "subject": "Private appointment",
+      "attendees": [
+        {
+          "emailAddress": {
+            "address": "someone@else.example"
+          }
+        }
+      ]
+    },
+    {
+      "@odata.etag": "W/\"abc\"",
+      "id": "evC",
+      "start": {
+        "dateTime": "2026-11-24T04:30:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2026-11-24T06:30:00.0000000",
+        "timeZone": "UTC"
+      },
+      "isAllDay": false,
+      "isCancelled": false,
+      "showAs": "free",
+      "responseStatus": {
+        "response": "organizer"
+      },
+      "subject": "Private appointment",
+      "attendees": [
+        {
+          "emailAddress": {
+            "address": "someone@else.example"
+          }
+        }
+      ]
+    }
+  ]
+}

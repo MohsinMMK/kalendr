@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Indiranagar Dental logo">
+  <rect width="512" height="512" fill="#2F9E8F"/>
+  <g transform="translate(256 258) scale(1.15)">
+    <path d="M -90,-60 C -90,-115 -45,-125 0,-100 C 45,-125 90,-115 90,-60 C 90,-10 70,20 62,70 C 56,105 48,125 34,125 C 18,125 18,60 0,60 C -18,60 -18,125 -34,125 C -48,125 -56,105 -62,70 C -70,20 -90,-10 -90,-60 Z" fill="#FFFFFF"/>
+  </g>
+  <path d="M0,-24 C2,-8 8,-2 24,0 C8,2 2,8 0,24 C-2,8 -8,2 -24,0 C-8,-2 -2,-8 0,-24Z" fill="#F6C453" transform="translate(376 132) scale(1.5)"/>
+</svg>

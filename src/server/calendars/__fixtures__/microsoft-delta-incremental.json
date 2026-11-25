@@ -1,0 +1,38 @@
+{
+  "@odata.context": "x",
+  "@odata.deltaLink": "https://graph.microsoft.com/v1.0/me/calendars/AAMkCal1/calendarView/delta?$deltatoken=tok2",
+  "value": [
+    {
+      "id": "evA",
+      "@removed": {
+        "reason": "deleted"
+      }
+    },
+    {
+      "@odata.etag": "W/\"abc\"",
+      "id": "evG",
+      "start": {
+        "dateTime": "2026-11-28T08:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2026-11-28T09:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "isAllDay": false,
+      "isCancelled": false,
+      "showAs": "busy",
+      "responseStatus": {
+        "response": "organizer"
+      },
+      "subject": "Private appointment",
+      "attendees": [
+        {
+          "emailAddress": {
+            "address": "someone@else.example"
+          }
+        }
+      ]
+    }
+  ]
+}

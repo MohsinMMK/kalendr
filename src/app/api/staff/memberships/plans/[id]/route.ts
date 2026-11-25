@@ -1,0 +1,25 @@
+import { z } from "zod";
+
+import { membershipPlanInputSchema } from "@/lib/offers-contracts";
+import { ApiError } from "@/server/api-error";
+import { dataResponse, parseJsonBody, routeErrorResponse } from "@/server/http";
+import { savePlan } from "@/server/offers/memberships";
+import { assertNotReadOnlyImpersonation, getStaffContext } from "@/server/staff-context";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+const idSchema = z.string().min(1).max(160).regex(/^[A-Za-z0-9_-]+$/);
+
+export async function PUT(request: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
+  const requestId = crypto.randomUUID();
+  try {
+    const staff = await getStaffContext(request.headers);
+    assertNotReadOnlyImpersonation(staff);
+    const id = idSchema.safeParse((await context.params).id);
+    if (!id.success) throw new ApiError(404, "plan_not_found", "That plan could not be found.");
+    return dataResponse(await savePlan(staff, id.data, await parseJsonBody(request, membershipPlanInputSchema, { maxBytes: 4_000 })));
+  } catch (error: unknown) {
+    return routeErrorResponse(error, "staff.memberships.plan_update", requestId);
+  }
+}

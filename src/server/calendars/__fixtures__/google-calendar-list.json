@@ -1,0 +1,26 @@
+{
+  "kind": "calendar#calendarList",
+  "etag": "\"p33g0cb1\"",
+  "items": [
+    {
+      "id": "asha.rao@gmail.example",
+      "summary": "asha.rao@gmail.example",
+      "primary": true,
+      "accessRole": "owner",
+      "timeZone": "Asia/Kolkata"
+    },
+    {
+      "id": "family123@group.calendar.google.example",
+      "summary": "Family",
+      "summaryOverride": "Family plans",
+      "accessRole": "writer",
+      "timeZone": "Asia/Kolkata"
+    },
+    {
+      "id": "holidays@group.v.calendar.google.example",
+      "summary": "Holidays in India",
+      "accessRole": "reader",
+      "timeZone": "UTC"
+    }
+  ]
+}

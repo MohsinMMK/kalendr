@@ -1,0 +1,67 @@
+{
+  "calendars": [
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/home/",
+      "name": "Home",
+      "ctag": "FT=-@RU=a1@S=17",
+      "syncToken": "data:,17",
+      "supportsEvents": true
+    },
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/work/",
+      "name": "Work",
+      "ctag": "FT=-@RU=b2@S=4",
+      "syncToken": null,
+      "supportsEvents": true
+    },
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/reminders/",
+      "name": "Reminders",
+      "ctag": null,
+      "syncToken": null,
+      "supportsEvents": false
+    }
+  ],
+  "objects": [
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/home/single.ics",
+      "etag": "\"e1\"",
+      "data": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Apple Inc.//iCal 7.0//EN\r\nBEGIN:VTIMEZONE\r\nTZID:Asia/Kolkata\r\nBEGIN:STANDARD\r\nDTSTART:19451015T000000\r\nTZOFFSETFROM:+0630\r\nTZOFFSETTO:+0530\r\nTZNAME:IST\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\nBEGIN:VEVENT\r\nUID:single-1\r\nDTSTAMP:20261101T000000Z\r\nDTSTART;TZID=Asia/Kolkata:20261120T100000\r\nDTEND;TZID=Asia/Kolkata:20261120T110000\r\nSUMMARY:Therapy session\r\nDESCRIPTION:Very private\r\nLOCATION:Somewhere\r\nATTENDEE;CN=Dr Rao:mailto:dr.rao@example.test\r\nBEGIN:VALARM\r\nTRIGGER:-PT15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Reminder\r\nEND:VALARM\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
+    },
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/home/allday.ics",
+      "etag": "\"e2\"",
+      "data": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Apple Inc.//iCal 7.0//EN\r\nBEGIN:VEVENT\r\nUID:allday-1\r\nDTSTAMP:20261101T000000Z\r\nDTSTART;VALUE=DATE:20261121\r\nDTEND;VALUE=DATE:20261123\r\nSUMMARY:Trip\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
+    },
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/home/free.ics",
+      "etag": "\"e3\"",
+      "data": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Apple Inc.//iCal 7.0//EN\r\nBEGIN:VEVENT\r\nUID:free-1\r\nDTSTAMP:20261101T000000Z\r\nDTSTART:20261124T043000Z\r\nDTEND:20261124T063000Z\r\nTRANSP:TRANSPARENT\r\nSUMMARY:Maybe\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
+    },
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/home/cancelled.ics",
+      "etag": "\"e4\"",
+      "data": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Apple Inc.//iCal 7.0//EN\r\nBEGIN:VEVENT\r\nUID:cancelled-1\r\nDTSTAMP:20261101T000000Z\r\nDTSTART:20261125T043000Z\r\nDTEND:20261125T053000Z\r\nSTATUS:CANCELLED\r\nSUMMARY:Called off\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
+    },
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/home/weekly.ics",
+      "etag": "\"e5\"",
+      "data": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Apple Inc.//iCal 7.0//EN\r\nBEGIN:VEVENT\r\nUID:weekly-1\r\nDTSTAMP:20261001T000000Z\r\nDTSTART;TZID=Asia/Kolkata:20261105T100000\r\nDTEND;TZID=Asia/Kolkata:20261105T103000\r\nRRULE:FREQ=WEEKLY;BYDAY=TH;COUNT=6\r\nEXDATE;TZID=Asia/Kolkata:20261126T100000\r\nSUMMARY:Standup\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nUID:weekly-1\r\nDTSTAMP:20261001T000000Z\r\nRECURRENCE-ID;TZID=Asia/Kolkata:20261203T100000\r\nDTSTART;TZID=Asia/Kolkata:20261203T150000\r\nDTEND;TZID=Asia/Kolkata:20261203T153000\r\nSUMMARY:Standup moved\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
+    },
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/home/floating.ics",
+      "etag": "\"e6\"",
+      "data": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Apple Inc.//iCal 7.0//EN\r\nBEGIN:VEVENT\r\nUID:floating-1\r\nDTSTAMP:20261101T000000Z\r\nDTSTART:20261127T090000\r\nDURATION:PT1H30M\r\nSUMMARY:Floating\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
+    },
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/home/monthly.ics",
+      "etag": "\"e7\"",
+      "data": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Apple Inc.//iCal 7.0//EN\r\nBEGIN:VEVENT\r\nUID:monthly-1\r\nDTSTAMP:20261101T000000Z\r\nDTSTART:20261225T060000Z\r\nDTEND:20261225T070000Z\r\nRRULE:FREQ=MONTHLY;BYDAY=-1FR;UNTIL=20270331T000000Z\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
+    },
+    {
+      "url": "https://p42-caldav.icloud.example/1234/calendars/home/odd-rule.ics",
+      "etag": "\"e8\"",
+      "data": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Apple Inc.//iCal 7.0//EN\r\nBEGIN:VEVENT\r\nUID:odd-1\r\nDTSTAMP:20261101T000000Z\r\nDTSTART:20261130T060000Z\r\nDTEND:20261130T070000Z\r\nRRULE:FREQ=MONTHLY;BYDAY=MO,TU;BYSETPOS=1\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
+    }
+  ]
+}

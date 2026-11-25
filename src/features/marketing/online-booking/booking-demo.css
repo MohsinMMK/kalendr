@@ -1,0 +1,404 @@
+/* The online-booking hero demo. Everything is scoped to .bk-demo. The phone's
+   screen is laid out in iPhone points (402 wide) and scaled with the frame. */
+
+/* ---- Pinned phone: one gutter from the top, runs off the bottom ---- */
+
+.bk-demo .bk-phone {
+  position: absolute;
+  top: 28px;
+  left: 100px;
+}
+
+.bk-demo .ss-stage[data-layout="compact"] .bk-phone {
+  top: 24px;
+  left: 24px;
+}
+
+.bk-screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--ss-canvas);
+  color: var(--ss-text-strong);
+}
+
+/* ---- The page's top row: Back, the business name, Call ---- */
+
+.bk-top {
+  position: absolute;
+  inset: 62px 0 auto;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 20px;
+  background: var(--ss-canvas);
+}
+
+.bk-back {
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  color: var(--ss-text-strong);
+  transition: width 0.35s ease, margin 0.35s ease, opacity 0.35s ease;
+}
+
+.bk-back[data-on] {
+  width: 20px;
+  margin-right: 10px;
+  opacity: 1;
+}
+
+.bk-business {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bk-call {
+  color: var(--ss-accent);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* ---- The track: five screens side by side, gliding as the flow moves on ---- */
+
+.bk-track {
+  position: absolute;
+  inset: 0;
+  width: 2010px;
+  transition: transform 0.6s cubic-bezier(0.3, 0.75, 0.1, 1);
+}
+
+.bk-pane {
+  position: absolute;
+  top: 118px;
+  width: 402px;
+  padding: 0 20px;
+}
+
+.bk-pane:nth-child(1) { left: 0; }
+.bk-pane:nth-child(2) { left: 402px; }
+.bk-pane:nth-child(3) { left: 804px; }
+.bk-pane:nth-child(4) { left: 1206px; }
+.bk-pane:nth-child(5) { left: 1608px; }
+
+.bk-title {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+/* ---- Service cards ---- */
+
+.bk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bk-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--ss-surface);
+  box-shadow: inset 0 0 0 1px var(--ss-line);
+  transition: box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.bk-card[data-on] {
+  background: var(--ss-accent-soft);
+  box-shadow: inset 0 0 0 2px var(--ss-accent);
+}
+
+.bk-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bk-card__name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.bk-card__meta {
+  color: var(--ss-text);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  line-height: 18px;
+}
+
+.bk-card__check {
+  flex: none;
+  margin-top: 1px;
+  color: var(--ss-accent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.bk-card[data-on] .bk-card__check {
+  opacity: 1;
+}
+
+.bk-badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--ss-line);
+  color: var(--ss-text);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+/* ---- Time screen ---- */
+
+.bk-days {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.bk-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 0;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px var(--ss-line);
+  background: var(--ss-surface);
+}
+
+.bk-day[data-on] {
+  background: var(--ss-accent-soft);
+  box-shadow: inset 0 0 0 1px var(--ss-accent);
+}
+
+.bk-day__name {
+  color: var(--ss-text);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.bk-day__date {
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.bk-times {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.bk-time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--ss-surface);
+  box-shadow: inset 0 0 0 1px var(--ss-line);
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bk-time[data-on] {
+  background: var(--ss-accent);
+  box-shadow: none;
+  color: var(--primary-foreground);
+}
+
+/* ---- The business's question ---- */
+
+.bk-ask {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bk-ask__q {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.bk-chips {
+  display: flex;
+  gap: 10px;
+}
+
+.bk-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--ss-surface);
+  box-shadow: inset 0 0 0 1px var(--ss-line);
+  font-size: 16px;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bk-chip[data-on] {
+  background: var(--ss-accent);
+  box-shadow: none;
+  color: var(--primary-foreground);
+}
+
+/* ---- Details ---- */
+
+.bk-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bk-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--ss-surface);
+  box-shadow: inset 0 0 0 1px var(--ss-line);
+  transition: box-shadow 0.2s ease;
+}
+
+.bk-field[data-focus] {
+  box-shadow: inset 0 0 0 2px var(--ss-accent);
+}
+
+.bk-field__label {
+  color: var(--ss-text);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.bk-field__value {
+  min-height: 22px;
+  font-size: 17px;
+  line-height: 22px;
+}
+
+/* ---- Primary button ---- */
+
+.bk-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+  margin-top: 20px;
+  border-radius: 14px;
+  background: var(--ss-accent);
+  color: var(--primary-foreground);
+  font-size: 17px;
+  font-weight: 600;
+  transition: opacity 0.25s ease;
+}
+
+.bk-btn:not([data-ready]):not(.bk-btn--on) {
+  opacity: 0.45;
+}
+
+/* ---- The booked screen ---- */
+
+.bk-pane--done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.bk-done__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--success) 14%, transparent);
+  color: var(--success);
+}
+
+.bk-done__title {
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.bk-done__text {
+  margin-top: 4px;
+  color: var(--ss-text);
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.bk-summary {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--ss-surface);
+  box-shadow: inset 0 0 0 1px var(--ss-line);
+  text-align: left;
+}
+
+.bk-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ss-text);
+}
+
+.bk-row__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bk-row__label {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.bk-row__value {
+  color: var(--ss-text-strong);
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.bk-pane--done .bk-btn {
+  align-self: stretch;
+  margin-top: 16px;
+}

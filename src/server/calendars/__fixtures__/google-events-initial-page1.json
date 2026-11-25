@@ -1,0 +1,59 @@
+{
+  "kind": "calendar#events",
+  "timeZone": "Asia/Kolkata",
+  "nextPageToken": "page-2-token",
+  "items": [
+    {
+      "kind": "calendar#event",
+      "id": "evt1",
+      "status": "confirmed",
+      "summary": "Dentist - root canal",
+      "description": "Bring X-rays",
+      "location": "12 MG Road",
+      "attendees": [
+        {
+          "email": "dr.patel@clinic.example",
+          "responseStatus": "accepted"
+        },
+        {
+          "email": "asha.rao@gmail.example",
+          "self": true,
+          "responseStatus": "accepted"
+        }
+      ],
+      "start": {
+        "dateTime": "2026-11-20T10:00:00+05:30",
+        "timeZone": "Asia/Kolkata"
+      },
+      "end": {
+        "dateTime": "2026-11-20T11:00:00+05:30",
+        "timeZone": "Asia/Kolkata"
+      }
+    },
+    {
+      "kind": "calendar#event",
+      "id": "evt2",
+      "status": "confirmed",
+      "summary": "Conference trip",
+      "start": {
+        "date": "2026-11-21"
+      },
+      "end": {
+        "date": "2026-11-23"
+      }
+    },
+    {
+      "kind": "calendar#event",
+      "id": "evt3",
+      "status": "confirmed",
+      "summary": "Focus time",
+      "transparency": "transparent",
+      "start": {
+        "dateTime": "2026-11-24T04:30:00Z"
+      },
+      "end": {
+        "dateTime": "2026-11-24T06:30:00Z"
+      }
+    }
+  ]
+}

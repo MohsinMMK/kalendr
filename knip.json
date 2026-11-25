@@ -1,0 +1,23 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    ".": {
+      "entry": ["scripts/*.mjs", "e2e/**/*.spec.ts", "e2e/support/*.mjs"],
+      "project": ["src/**/*.{ts,tsx}", "scripts/**/*.mjs", "e2e/**/*.{ts,mjs}"],
+      "ignore": ["src/components/kloq/**", "src/components/ui/**", "src/components/chat/**", "src/components/reui/**", "src/components/stageshow/**"],
+      "ignoreDependencies": ["tailwindcss", "tw-animate-css"],
+      "drizzle": false,
+      "playwright": false
+    },
+    "integrations/browser-extension": {
+      "entry": ["scripts/*.{ts,mjs}"],
+      "project": ["src/**/*.{ts,tsx}", "scripts/**/*.{ts,mjs}"]
+    }
+  },
+  "ignoreBinaries": ["openssl"],
+  "rules": {
+    "exports": "warn",
+    "types": "warn",
+    "enumMembers": "warn"
+  }
+}

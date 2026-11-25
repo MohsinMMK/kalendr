@@ -1,0 +1,8 @@
+{
+  "access_token": "ya29.access",
+  "refresh_token": "1//refresh",
+  "expiry_date": 1795400000000,
+  "scope": "openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.calendarlist.readonly",
+  "token_type": "Bearer",
+  "id_token": "eyJhbGciOiJSUzI1NiJ9.eyJlbWFpbCI6ImFzaGEucmFvQGdtYWlsLmV4YW1wbGUiLCJzdWIiOiIxMjMifQ.sig"
+}

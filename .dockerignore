@@ -1,0 +1,24 @@
+# Keep secrets, local data and build output out of the image build context.
+.env*
+!.env.example
+.git
+.github
+.next
+.next-*
+.e2e
+.claude
+.impeccable
+.local-db
+.playwright-cli
+node_modules
+dist
+output
+coverage
+playwright-report
+test-results
+graphify-out
+storage
+tsconfig.tsbuildinfo
+*.log
+Dockerfile
+.dockerignore

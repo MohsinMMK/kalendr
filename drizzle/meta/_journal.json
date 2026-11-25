@@ -1,0 +1,601 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1788126761652,
+      "tag": "0000_wonderful_goliath",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790038800000,
+      "tag": "0001_staff_memberships",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790900000000,
+      "tag": "0002_schedule_blocks",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791569309228,
+      "tag": "0003_auth_account_compatibility",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793902290875,
+      "tag": "0004_cheerful_baron_zemo",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793908491782,
+      "tag": "0005_safe_scorpion",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794333752516,
+      "tag": "0006_team_access",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1794335905309,
+      "tag": "0007_booking_sources",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1794378439166,
+      "tag": "0008_kalendr_function_names",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1794378659922,
+      "tag": "0009_business_profiles",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1794380921116,
+      "tag": "0010_booking_forms",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1794406987497,
+      "tag": "0011_media_assets",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1794415310051,
+      "tag": "0012_sad_ken_ellis",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1794423380904,
+      "tag": "0013_clumsy_arclight",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1794436242482,
+      "tag": "0014_observability",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1794466225333,
+      "tag": "0015_production_worker",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1795018451690,
+      "tag": "0016_workspace_layout",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1795024349623,
+      "tag": "0017_visit_times",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1795024815289,
+      "tag": "0018_handover_notes",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1795025655866,
+      "tag": "0019_queue_tickets",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1795026871733,
+      "tag": "0020_live_updates",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1795027351345,
+      "tag": "0021_payments",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1795027413743,
+      "tag": "0022_price_backfill",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1795030771877,
+      "tag": "0023_day_closes",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1795031441179,
+      "tag": "0024_queue_screens",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1795117841179,
+      "tag": "0025_visit_fields",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1795117842179,
+      "tag": "0026_email_delivery",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1795117843179,
+      "tag": "0027_protected_storage",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "7",
+      "when": 1795117844179,
+      "tag": "0028_rate_limits",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1795117845179,
+      "tag": "0029_queue_door",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1795117846179,
+      "tag": "0030_service_setup",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1795117847179,
+      "tag": "0031_availability_schedules",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1795117848179,
+      "tag": "0032_whatsapp_sms_channels",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1795117849179,
+      "tag": "0033_message_workflows",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1795117850179,
+      "tag": "0034_video_visits",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "7",
+      "when": 1795183119840,
+      "tag": "0035_booking_limits",
+      "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1795269519840,
+      "tag": "0036_booking_page",
+      "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1795355919840,
+      "tag": "0037_booking_questions",
+      "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1795355919841,
+      "tag": "0038_staff_second_factor",
+      "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "7",
+      "when": 1795355919842,
+      "tag": "0039_privacy_centre",
+      "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "7",
+      "when": 1795355979842,
+      "tag": "0040_staff_alerts",
+      "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "7",
+      "when": 1795356039842,
+      "tag": "0041_calendar_sync",
+      "breakpoints": true
+    },
+    {
+      "idx": 42,
+      "version": "7",
+      "when": 1795356099842,
+      "tag": "0042_online_payments",
+      "breakpoints": true
+    },
+    {
+      "idx": 43,
+      "version": "7",
+      "when": 1795356199842,
+      "tag": "0043_public_api_webhooks",
+      "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "7",
+      "when": 1795356299842,
+      "tag": "0044_data_import",
+      "breakpoints": true
+    },
+    {
+      "idx": 45,
+      "version": "7",
+      "when": 1795356399842,
+      "tag": "0045_approval_rules",
+      "breakpoints": true
+    },
+    {
+      "idx": 46,
+      "version": "7",
+      "when": 1795356459842,
+      "tag": "0046_cancel_policy",
+      "breakpoints": true
+    },
+    {
+      "idx": 47,
+      "version": "7",
+      "when": 1795356519842,
+      "tag": "0047_bookings_list",
+      "breakpoints": true
+    },
+    {
+      "idx": 48,
+      "version": "7",
+      "when": 1795700000000,
+      "tag": "0048_platform_admin",
+      "breakpoints": true
+    },
+    {
+      "idx": 49,
+      "version": "7",
+      "when": 1795800000000,
+      "tag": "0049_subscription_billing",
+      "breakpoints": true
+    },
+    {
+      "idx": 50,
+      "version": "7",
+      "when": 1795900000000,
+      "tag": "0050_customer_sign_in",
+      "breakpoints": true
+    },
+    {
+      "idx": 51,
+      "version": "7",
+      "when": 1795910000000,
+      "tag": "0051_waitlist_offers",
+      "breakpoints": true
+    },
+    {
+      "idx": 52,
+      "version": "7",
+      "when": 1795920000000,
+      "tag": "0052_repeating_appointments",
+      "breakpoints": true
+    },
+    {
+      "idx": 53,
+      "version": "7",
+      "when": 1795930000000,
+      "tag": "0053_team_routing",
+      "breakpoints": true
+    },
+    {
+      "idx": 54,
+      "version": "7",
+      "when": 1795940000000,
+      "tag": "0054_group_classes",
+      "breakpoints": true
+    },
+    {
+      "idx": 55,
+      "version": "7",
+      "when": 1796006400000,
+      "tag": "0055_branding_domains",
+      "breakpoints": true
+    },
+    {
+      "idx": 56,
+      "version": "7",
+      "when": 1796092800000,
+      "tag": "0056_onboarding_progress",
+      "breakpoints": true
+    },
+    {
+      "idx": 57,
+      "version": "7",
+      "when": 1796102800000,
+      "tag": "0057_spam_protection",
+      "breakpoints": true
+    },
+    {
+      "idx": 58,
+      "version": "7",
+      "when": 1796112800000,
+      "tag": "0058_special_links",
+      "breakpoints": true
+    },
+    {
+      "idx": 59,
+      "version": "7",
+      "when": 1796122800000,
+      "tag": "0059_service_templates",
+      "breakpoints": true
+    },
+    {
+      "idx": 60,
+      "version": "7",
+      "when": 1796132800000,
+      "tag": "0060_calendar_wording",
+      "breakpoints": true
+    },
+    {
+      "idx": 61,
+      "version": "7",
+      "when": 1796140000000,
+      "tag": "0061_invoicing",
+      "breakpoints": true
+    },
+    {
+      "idx": 62,
+      "version": "7",
+      "when": 1796150000000,
+      "tag": "0062_packages_coupons",
+      "breakpoints": true
+    },
+    {
+      "idx": 63,
+      "version": "7",
+      "when": 1796300000000,
+      "tag": "0063_embeds",
+      "breakpoints": true
+    },
+    {
+      "idx": 64,
+      "version": "7",
+      "when": 1796310000000,
+      "tag": "0064_staff_notifications",
+      "breakpoints": true
+    },
+    {
+      "idx": 65,
+      "version": "7",
+      "when": 1796396400000,
+      "tag": "0065_reports",
+      "breakpoints": true
+    },
+    {
+      "idx": 66,
+      "version": "7",
+      "when": 1796482800000,
+      "tag": "0066_feedback",
+      "breakpoints": true
+    },
+    {
+      "idx": 67,
+      "version": "7",
+      "when": 1796500000000,
+      "tag": "0067_enterprise",
+      "breakpoints": true
+    },
+    {
+      "idx": 68,
+      "version": "7",
+      "when": 1796510000000,
+      "tag": "0068_customer_profiles",
+      "breakpoints": true
+    },
+    {
+      "idx": 69,
+      "version": "7",
+      "when": 1796520000000,
+      "tag": "0069_campaigns",
+      "breakpoints": true
+    },
+    {
+      "idx": 70,
+      "version": "7",
+      "when": 1796600000000,
+      "tag": "0070_ai_assistant",
+      "breakpoints": true
+    },
+    {
+      "idx": 71,
+      "version": "7",
+      "when": 1796900000000,
+      "tag": "0071_apps_marketplace",
+      "breakpoints": true
+    },
+    {
+      "idx": 72,
+      "version": "7",
+      "when": 1796910000000,
+      "tag": "0072_device_signin",
+      "breakpoints": true
+    },
+    {
+      "idx": 73,
+      "version": "7",
+      "when": 1796920000000,
+      "tag": "0073_routing_forms",
+      "breakpoints": true
+    },
+    {
+      "idx": 74,
+      "version": "7",
+      "when": 1797100000000,
+      "tag": "0074_search_discovery",
+      "breakpoints": true
+    },
+    {
+      "idx": 75,
+      "version": "7",
+      "when": 1797200000000,
+      "tag": "0075_money_rows_final",
+      "breakpoints": true
+    },
+    {
+      "idx": 76,
+      "version": "7",
+      "when": 1797300000000,
+      "tag": "0076_staff_own_photo",
+      "breakpoints": true
+    },
+    {
+      "idx": 77,
+      "version": "7",
+      "when": 1797400000000,
+      "tag": "0077_field_kinds",
+      "breakpoints": true
+    },
+    {
+      "idx": 78,
+      "version": "7",
+      "when": 1797500000000,
+      "tag": "0078_staff_job_title",
+      "breakpoints": true
+    },
+    {
+      "idx": 79,
+      "version": "7",
+      "when": 1797600000000,
+      "tag": "0079_staff_last_sign_in",
+      "breakpoints": true
+    },
+    {
+      "idx": 80,
+      "version": "7",
+      "when": 1797700000000,
+      "tag": "0080_membership_locations",
+      "breakpoints": true
+    },
+    {
+      "idx": 81,
+      "version": "7",
+      "when": 1797750000000,
+      "tag": "0081_login_held_elsewhere",
+      "breakpoints": true
+    },
+    {
+      "idx": 82,
+      "version": "7",
+      "when": 1797800000000,
+      "tag": "0082_services_optimized_slots",
+      "breakpoints": true
+    },
+    {
+      "idx": 83,
+      "version": "7",
+      "when": 1797900000000,
+      "tag": "0083_owner_summary",
+      "breakpoints": true
+    },
+    {
+      "idx": 84,
+      "version": "7",
+      "when": 1798100000000,
+      "tag": "0084_staff_login_invites",
+      "breakpoints": true
+    }
+  ]
+}

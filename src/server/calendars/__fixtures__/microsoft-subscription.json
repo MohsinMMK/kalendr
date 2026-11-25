@@ -1,0 +1,9 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#subscriptions/$entity",
+  "id": "sub-7f105c",
+  "resource": "/me/calendars/AAMkCal1/events",
+  "changeType": "created,updated,deleted",
+  "clientState": "shared-secret",
+  "notificationUrl": "https://app.example.test/api/webhooks/microsoft-graph",
+  "expirationDateTime": "2026-11-22T03:00:00.0000000Z"
+}

@@ -1,0 +1,130 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "next-dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "dev"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "next-dev-preview",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "dev"
+      ],
+      "env": {
+        "DATABASE_URL": "",
+        "KALENDR_PREVIEW_MODE": "true"
+      },
+      "port": 3000
+    },
+    {
+      "name": "kalendr-preview-3001",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "dev",
+        "--port",
+        "3001"
+      ],
+      "env": {
+        "DATABASE_URL": "",
+        "KALENDR_PREVIEW_MODE": "true",
+        "KALENDR_NEXT_DIST_DIR": ".next-preview"
+      },
+      "port": 3001
+    },
+    {
+      "name": "kalendr-preview-3004",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "dev",
+        "--port",
+        "3004"
+      ],
+      "env": {
+        "DATABASE_URL": "",
+        "KALENDR_PREVIEW_MODE": "true",
+        "KALENDR_NEXT_DIST_DIR": ".next-preview-3004"
+      },
+      "port": 3004
+    },
+    {
+      "name": "next-dev-local-db",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "scripts/local-db.sh",
+        "run",
+        "pnpm",
+        "dev"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "kalendr-local-db-3002",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "scripts/local-db.sh",
+        "run",
+        "pnpm",
+        "dev",
+        "--port",
+        "3002"
+      ],
+      "env": {
+        "KALENDR_NEXT_DIST_DIR": ".next-local-3002"
+      },
+      "port": 3002
+    },
+    {
+      "name": "kalendr-local-db-3002-browser-sign-in",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "scripts/local-db.sh",
+        "run",
+        "bash",
+        "-c",
+        "BETTER_AUTH_TRUSTED_ORIGINS=\"$BETTER_AUTH_TRUSTED_ORIGINS,http://localhost:3002\" exec pnpm dev --port 3002"
+      ],
+      "env": {
+        "KALENDR_NEXT_DIST_DIR": ".next-local-3002"
+      },
+      "port": 3002
+    },
+    {
+      "name": "kalendr-e2e-3100",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "node e2e/support/capture-server.mjs & set -a; source .e2e/runtime.env; set +a; export NODE_ENV=production BETTER_AUTH_URL=http://localhost:3100 BETTER_AUTH_TRUSTED_ORIGINS=http://localhost:3100 NEXT_PUBLIC_APP_URL=http://localhost:3100 BETTER_AUTH_REQUIRE_EMAIL_VERIFICATION=true KALENDR_ALLOW_CLINIC_REGISTRATION=true KALENDR_PREVIEW_MODE=false KALENDR_FILE_STORE_DIR=.e2e/files EMAIL_FROM=tests@example.com RESEND_API_KEY=e2e-capture-only EMAIL_API_URL=http://127.0.0.1:3199/emails SENTRY_DSN=http://e2epublickey@127.0.0.1:3199/1 SENTRY_ENVIRONMENT=e2e; exec pnpm exec next start --port 3100"
+      ],
+      "port": 3100
+    },
+    {
+      "name": "billui-preview-3011",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "dev",
+        "--port",
+        "3011"
+      ],
+      "env": {
+        "DATABASE_URL": "",
+        "KALENDR_PREVIEW_MODE": "true",
+        "KALENDR_NEXT_DIST_DIR": ".next-billui"
+      },
+      "port": 3011
+    },
+    {
+      "name": "kalendr-admin-ui-3130",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "while IFS= read -r line; do [[ \"$line\" == *=* ]] && export \"$line\"; done < .e2e-adminui/runtime.env; export NODE_ENV=production BETTER_AUTH_URL=http://localhost:3130 BETTER_AUTH_TRUSTED_ORIGINS=http://localhost:3130 NEXT_PUBLIC_APP_URL=http://localhost:3130 BETTER_AUTH_REQUIRE_EMAIL_VERIFICATION=true KALENDR_PREVIEW_MODE=false KALENDR_FILE_STORE_DIR=.e2e-adminui/files TRUSTED_PROXY_HOPS=1 EMAIL_FROM=tests@example.com RESEND_API_KEY=e2e-capture-only EMAIL_API_URL=http://127.0.0.1:3299/emails; exec pnpm exec next start --port 3130"
+      ],
+      "port": 3130
+    }
+  ]
+}
