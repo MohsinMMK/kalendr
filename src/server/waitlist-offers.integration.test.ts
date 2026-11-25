@@ -246,8 +246,12 @@ describeIsolated("smart waitlist (feature 21) against a real database", () => {
 
     // Under two hours away: nothing is held and nothing is offered.
     await reset();
-    // The next local hour boundary at least 40 minutes away (India is half an hour off UTC), so under two hours away.
-    const soon = new Date(Math.ceil((Date.now() + 40 * 60_000 - 30 * 60_000) / 3_600_000) * 3_600_000 + 30 * 60_000);
+    // The next local hour boundary (India is half an hour off UTC) at least a minute away (bookings need no lead time), so under two hours away.
+    // The day closes at 23:59 and a visit is an hour, so 23:00 can never be booked; take the hour after it instead.
+    const lastBoundary = Math.floor((Date.now() - 30 * 60_000) / 3_600_000) * 3_600_000 + 30 * 60_000;
+    const localHour = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", hour: "2-digit", hourCycle: "h23" });
+    const soon = [1, 2, 3].map((hours) => new Date(lastBoundary + hours * 3_600_000))
+      .find((time) => time.getTime() - Date.now() >= 60_000 && localHour.format(time) !== "23")!;
     expect(soon.getTime() - Date.now()).toBeLessThan(2 * 3_600_000);
     const entry = await wait(await person("Soon"), { from: 0, to: 2 });
     const closeBooking = await book("soon-" + randomUUID().slice(0, 6) + "@example.com", soon);
