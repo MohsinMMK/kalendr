@@ -189,6 +189,8 @@ test("the view and date stay in the address, and the daily actions work from the
   await page.keyboard.press("?");
   await expect(page.getByRole("dialog", { name: "Keyboard shortcuts" })).toBeVisible();
   await page.keyboard.press("Escape");
+  // Shortcuts wait while a dialog is open, so let it finish closing first.
+  await expect(page.getByRole("dialog", { name: "Keyboard shortcuts" })).toHaveCount(0);
   await page.keyboard.press("n");
   await expect(page).toHaveURL(/\/appointments\/new/);
 });
