@@ -21,13 +21,17 @@ test("front desk finds a booking in the Bookings list, saves a view and opens it
   await staff.getByPlaceholder("Name or phone").fill(customer.firstName);
   await staff.keyboard.press("Escape");
   await expect(staff.getByText(customer.firstName).first()).toBeVisible();
-  // The customer's name links to their profile and shows a card about them on hover.
-  const nameLink = staff.getByRole("link", { name: new RegExp(customer.firstName) }).first();
-  await expect(nameLink).toHaveAttribute("href", /\/patients\?patient=/);
-  await nameLink.hover();
-  await expect(staff.getByRole("dialog", { name: new RegExp(`: .*${customer.firstName}`) })).toBeVisible();
-  // A row opens its booking's card on this page; the list behind it stays usable.
-  await staff.getByRole("row", { name: new RegExp(customer.firstName) }).getByText("Booked").click();
+  const phone = testInfo.project.name === "phone";
+  if (!phone) {
+    // In the table the customer's name links to their profile and shows a card about them on hover.
+    const nameLink = staff.getByRole("link", { name: new RegExp(customer.firstName) }).first();
+    await expect(nameLink).toHaveAttribute("href", /\/patients\?patient=/);
+    await nameLink.hover();
+    await expect(staff.getByRole("dialog", { name: new RegExp(`: .*${customer.firstName}`) })).toBeVisible();
+  }
+  // A row (a card on a phone) opens its booking's card on this page; the list behind it stays usable.
+  const item = phone ? staff.getByRole("listitem").filter({ hasText: customer.lastName }) : staff.getByRole("row", { name: new RegExp(customer.lastName) });
+  await item.getByText("Booked").click();
   const card = staff.getByRole("dialog", { name: new RegExp(customer.firstName) });
   await expect(card.getByRole("link", { name: "Details" })).toBeVisible();
   await expect(staff).toHaveURL(/\/bookings/);

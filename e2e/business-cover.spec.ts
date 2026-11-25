@@ -224,10 +224,13 @@ test("a receptionist with no booking profile adds their own photo on My profile 
     });
     await page.goto("/profile");
     await expect(account.getByRole("button", { name: "Change photo" })).toBeVisible();
+    // On a phone the sidebar is a drawer.
+    if (testInfo.project.name === "phone") await page.getByRole("button", { name: "Toggle Sidebar" }).first().click();
     await expect(footerPhoto.first()).toBeVisible();
 
     // The account menu: their photo, then Appearance as a row of Light, Dark and System tabs.
-    await page.locator("[data-slot='sidebar-footer'] button, [data-sidebar='footer'] button").first().click();
+    // The footer also holds the booking link's Copy and Open, so pick the account row itself.
+    await page.locator("[data-slot='sidebar-footer'] [data-sidebar='menu-button'], [data-sidebar='footer'] [data-sidebar='menu-button']").first().click();
     const appearance = page.getByRole("group", { name: "Appearance" });
     await expect(appearance.getByRole("menuitemradio")).toHaveCount(3);
     const boxes = await appearance.getByRole("menuitemradio").evaluateAll((items) => items.map((item) => item.getBoundingClientRect().top));

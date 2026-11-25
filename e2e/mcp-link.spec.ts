@@ -43,9 +43,11 @@ test("a link from an assistant books the held time after the customer confirms",
     const heading = page.getByRole("heading", { level: 1 });
     // Whatever comes first, the flow gets to the details with the linked time chosen. The time screen moves on by
     // itself for a linked time; any other screen moves on when its chosen card is tapped again.
-    for (let step = 0; step < 6 && !(await page.getByRole("heading", { level: 1, name: "Last step: your details" }).isVisible()); step += 1) {
+    for (let step = 0; step < 6; step += 1) {
       await expect(heading).toBeVisible();
       const current = await heading.innerText();
+      // The flow can reach the details on its own while the page loads.
+      if (current === "Last step: your details") break;
       if (current !== "When works for you?") await page.locator("label").filter({ has: page.locator("[data-checked]") }).first().click();
       await expect(heading).not.toHaveText(current, { timeout: 10_000 });
     }

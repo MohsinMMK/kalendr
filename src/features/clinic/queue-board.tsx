@@ -324,7 +324,6 @@ function BoardCard({ card, canDrag, busy, selected, onOpen }: { card: CardModel;
       {...dragProps}
       role="button"
       tabIndex={0}
-      aria-label={cardLabel(card)}
       aria-busy={busy || undefined}
       aria-current={selected || undefined}
       data-card-id={card.appointment.id}
@@ -339,7 +338,11 @@ function BoardCard({ card, canDrag, busy, selected, onOpen }: { card: CardModel;
         busy && "opacity-70",
       )}
     >
-      <CardFace card={card} busy={busy} />
+      {/* The card's name: the visible face is shorthand (initials, "15m"), so it is read from this line instead. */}
+      <span className="sr-only">{cardLabel(card)}</span>
+      <div aria-hidden="true">
+        <CardFace card={card} busy={busy} />
+      </div>
     </div>
   );
 }

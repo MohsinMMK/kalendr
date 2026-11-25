@@ -97,7 +97,7 @@ describe("staff patient flow", () => {
     expect(cards()).toHaveLength(5);
     await user.type(screen.getByRole("searchbox", { name: "Search today's patients" }), "Ananya");
     // Hidden cards fade out before they leave the page.
-    await waitFor(() => expect(cards().map((item) => item.getAttribute("aria-label"))).toEqual([expect.stringContaining("Ananya Rao")]));
+    await waitFor(() => expect(cards().map((item) => item.textContent)).toEqual([expect.stringContaining("Ananya Rao")]));
     await user.click(screen.getByRole("button", { name: "Room" }));
     await user.click(await screen.findByRole("checkbox", { name: /^Operatory 1/ }));
     await waitFor(() => expect(cards()).toHaveLength(0));

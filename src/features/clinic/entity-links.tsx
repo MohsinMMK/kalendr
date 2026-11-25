@@ -41,7 +41,7 @@ function EntityLink({ href, label, className, children, card }: { href?: string;
     <PreviewCardTrigger delay={350} closeDelay={150} className={cn(href && linkClass, className)} render={href ? <Link href={href} /> : <span tabIndex={0} />}>
       {children}
     </PreviewCardTrigger>
-    <PreviewCardPopup className="w-72 flex-col gap-3 p-3" aria-label={label}>
+    <PreviewCardPopup className="w-72 flex-col gap-3 p-3" role="dialog" aria-label={label}>
       {card}
       {href ? <Link href={href} className="inline-flex items-center gap-1 self-start text-xs font-medium underline-offset-4 hover:underline">Open<ArrowUpRight className="size-3" aria-hidden="true" /></Link> : null}
     </PreviewCardPopup>
