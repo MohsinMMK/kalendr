@@ -55,7 +55,11 @@ function isKnownFinding(rule: string, node: { html: string; failureSummary?: str
 /** `scope` limits the scan to one part of the page (a dialog), for a screen shown over a page whose own findings belong to another feature. */
 export async function expectAccessible(page: Page, testInfo: TestInfo, label: string, scope?: string): Promise<void> {
   // A screen fading in has partial opacity, which reads as low contrast. Scan the settled screen.
-  await page.waitForFunction(() => document.getAnimations().every((animation) => animation.playState !== "running"), undefined, { timeout: 5_000 }).catch(() => {});
+  // A popup that has just mounted sits at its starting style before its fade begins, so wait for that to clear too.
+  await page.waitForFunction(
+    () => !document.querySelector("[data-starting-style], [data-ending-style]") && document.getAnimations().every((animation) => animation.playState !== "running"),
+    undefined, { timeout: 5_000 },
+  ).catch(() => {});
   // A section change in the address re-runs the page's async metadata, so the tab title streams back a moment later.
   // Scan once it is there; a page that never gets one still fails the scan below.
   await page.waitForFunction(() => document.title.trim().length > 0, undefined, { timeout: 5_000 }).catch(() => {});
