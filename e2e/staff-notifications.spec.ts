@@ -121,6 +121,10 @@ test("a booking shows as an unread alert in the bell, and opening it marks it re
   await page.keyboard.press("Escape");
   await readBell.click();
   const reopened = page.getByRole("dialog", { name: "Notifications" });
+  // With nothing unread the drawer opens on Needs attention when that has anything, and a booking soon enough today
+  // lands there as "Form not assigned"; choose the alerts tab rather than depend on the hour the test runs.
+  await reopened.getByRole("tab", { name: /^Alerts/ }).click();
+  await expect(reopened.getByRole("tab", { name: /^Alerts/ })).toHaveAttribute("aria-selected", "true");
   await expect(reopened.getByRole("button", { name: /^New booking at/ }).first()).toBeVisible();
   await expect(reopened.getByRole("button", { name: /^Unread\./ })).toHaveCount(0);
   await expect(reopened.getByRole("button", { name: "Mark all read" })).toBeDisabled();
