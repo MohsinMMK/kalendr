@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Use Kalendr
+    url: https://kalendr.khanect.com
+    about: The hosted Kalendr for your business, run by Khanect.
   - name: Report a security problem
     url: https://github.com/MohsinMMK/kalendr/security/advisories/new
     about: Please report vulnerabilities privately, never in a public issue.

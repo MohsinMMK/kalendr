@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/MohsinMMK/kalendr/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MohsinMMK/kalendr/actions/workflows/ci.yml)
 
+**Live at [kalendr.khanect.com](https://kalendr.khanect.com).** Business sign-up opens once email delivery is set up.
+
 Kalendr is a production-shaped appointment web application for small appointment-led businesses of any kind: clinics and dental practices, salons, spas and gyms, estate agencies, consultants and other professional firms, shops, tutors and coaching centres, and anything else that runs on bookings. It gives customers a calm self-service booking and manage-booking experience, and gives the business team one responsive workspace for approvals, schedules, resources, waitlists, arrivals, follow-ups, and booking forms.
 
 This repository is intentionally a scheduling system, not a point-of-sale, billing platform, marketplace, or CRM. For healthcare and dental businesses it can also keep and share visit documents, but it is still not an EHR, diagnostic system, prescription system, emergency channel, or telemedicine product.
