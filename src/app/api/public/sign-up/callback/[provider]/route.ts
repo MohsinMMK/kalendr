@@ -1,4 +1,5 @@
 import { ApiError } from "@/server/api-error";
+import { appOrigin } from "@/server/env";
 import { providerProof, proofSetCookie } from "@/server/sign-up-check";
 import { clearOAuthCookie, finishSignUpOAuth, providerConfig, type SignUpProvider } from "@/server/sign-up-oauth";
 
@@ -9,7 +10,8 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request, context: { params: Promise<{ provider: string }> }): Promise<Response> {
   const { provider } = await context.params;
   if (provider !== "google" && provider !== "microsoft") return new Response("Not found", { status: 404 });
-  const back = new URL("/start", request.url);
+  // The public address, not request.url: behind the proxy that is the container's own (0.0.0.0:3000).
+  const back = new URL("/start", `${appOrigin()}/`);
   const headers = new Headers({ "cache-control": "no-store" });
   headers.append("set-cookie", clearOAuthCookie);
   const config = providerConfig(provider as SignUpProvider);

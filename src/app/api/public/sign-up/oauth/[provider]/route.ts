@@ -1,4 +1,5 @@
 import { isClinicRegistrationOpen } from "@/server/clinic-registration";
+import { appOrigin } from "@/server/env";
 import { enforceLimit } from "@/server/http";
 import { beginSignUpOAuth, providerConfig, type SignUpProvider } from "@/server/sign-up-oauth";
 
@@ -8,7 +9,8 @@ export const dynamic = "force-dynamic";
 /** Starts "Sign up with Google / Microsoft" on /start. See src/server/sign-up-oauth.ts. */
 export async function GET(request: Request, context: { params: Promise<{ provider: string }> }): Promise<Response> {
   const { provider } = await context.params;
-  const back = new URL("/start", request.url);
+  // The public address, not request.url: behind the proxy that is the container's own (0.0.0.0:3000).
+  const back = new URL("/start", `${appOrigin()}/`);
   if (provider !== "google" && provider !== "microsoft") return new Response("Not found", { status: 404 });
   const config = providerConfig(provider as SignUpProvider);
   if (!config || !isClinicRegistrationOpen()) {
