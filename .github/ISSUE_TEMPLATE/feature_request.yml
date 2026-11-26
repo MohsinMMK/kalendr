@@ -1,0 +1,22 @@
+name: Feature request
+description: Suggest something Kalendr should do.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do, and what gets in the way today?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help
+    validations:
+      required: true
+  - type: input
+    id: business
+    attributes:
+      label: Type of business
+      placeholder: Dental clinic, salon, tutoring centre …

@@ -1,0 +1,43 @@
+name: Bug report
+description: Something in Kalendr does not work as it should.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to …
+        2. Choose …
+        3. See …
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where
+      options:
+        - Customer booking or manage-booking page
+        - Staff workspace
+        - Setup or sign-up
+        - Embed or API
+        - Self-hosted or local development
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: Safari on iPhone 15, Chrome 142 on Windows …
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Screenshots or console errors. Leave out customer names, phone numbers and other personal data.

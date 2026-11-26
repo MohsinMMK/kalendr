@@ -170,7 +170,7 @@ Copy this into the release pull request.
 
 ## Known limits
 
-- The worker has a production mode but no provider adapters yet (features 2–4). In production every message goes to dead letter as `provider_not_configured`, and staff can retry it once a provider is connected. `compose.yaml` runs the worker in local capture mode, which needs a loopback database address, so it shares the database container's network.
+- In production the worker sends email through Resend when `RESEND_API_KEY` and `EMAIL_FROM` are set. WhatsApp and SMS messages go to dead letter as `provider_not_configured`, until their provider keys are set, and staff can retry them then. `compose.yaml` runs the worker in local capture mode, which needs a loopback database address, so it shares the database container's network.
 - pg-boss creates its tables in `kalendr_jobs` on the worker's first start, so the worker role owns them. The owner role cannot read them without a grant.
 - Calendar renewal is scheduled hourly but does nothing until calendar sync (feature 16).
 - Protected storage (feature 10) was run only against local MinIO, ClamAV and the local key provider. Real S3, real KMS and a production restore are not verified.

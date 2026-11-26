@@ -1,5 +1,7 @@
 # Kalendr by Khanect
 
+[![CI](https://github.com/MohsinMMK/kalendr/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MohsinMMK/kalendr/actions/workflows/ci.yml)
+
 Kalendr is a production-shaped appointment web application for small appointment-led businesses of any kind: clinics and dental practices, salons, spas and gyms, estate agencies, consultants and other professional firms, shops, tutors and coaching centres, and anything else that runs on bookings. It gives customers a calm self-service booking and manage-booking experience, and gives the business team one responsive workspace for approvals, schedules, resources, waitlists, arrivals, follow-ups, and booking forms.
 
 This repository is intentionally a scheduling system, not a point-of-sale, billing platform, marketplace, or CRM. For healthcare and dental businesses it can also keep and share visit documents, but it is still not an EHR, diagnostic system, prescription system, emergency channel, or telemedicine product.
@@ -128,3 +130,7 @@ All secrets stay outside source control. See `.env.example` for the full contrac
 ## Production prerequisites
 
 A live business rollout additionally requires authorized hosting and DNS changes, a production database, sender-verified email/SMS accounts, staff identity provisioning, backup and incident-response procedures, business-specific retention and cancellation policies, approved privacy/consent text, processor agreements, and jurisdiction-specific legal review. No external service is silently enabled by this repository.
+
+## Contributing, security and licence
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) and the [code of conduct](CODE_OF_CONDUCT.md). Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md). Kalendr is source-available, not open source: all rights are reserved, as set out in [LICENSE](LICENSE).
