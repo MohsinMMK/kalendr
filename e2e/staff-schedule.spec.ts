@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Page, type TestInfo } from "@playwright/test";
 
 import { expectAccessible, newCustomer, signIn, withOwnerDatabase, type Customer } from "./support/journey";
 
@@ -10,11 +10,14 @@ function today(offsetDays = 0): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(date);
 }
 
-/** A working day well ahead, so a booking is always inside the booking window. The phone project gets the week after the desktop one. */
-function visitDay(project: string): string {
+/**
+ * A working day well ahead, so a booking is always inside the booking window. The phone project gets the week after the
+ * desktop one, and a retry moves two weeks further on, so it never meets the visits its first attempt already booked.
+ */
+function visitDay(testInfo: TestInfo): string {
   for (let ahead = 4; ahead < 20; ahead += 1) {
     const key = today(ahead);
-    if (new Date(`${key}T12:00:00Z`).getUTCDay() === 1) return today(ahead + (project === "phone" ? 7 : 0));
+    if (new Date(`${key}T12:00:00Z`).getUTCDay() === 1) return today(ahead + (testInfo.project.name === "phone" ? 7 : 0) + 14 * (testInfo.retry + testInfo.repeatEachIndex));
   }
   throw new Error("No Monday found.");
 }
@@ -83,7 +86,7 @@ async function dragVisit(page: Page, name: string, { quarterHours = 0, rows = 0,
 
 test("a dragged visit moves on the server and can be undone, and a clash snaps back with a reason", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === "phone", "Dragging needs a pointer; the phone has the list.");
-  const day = visitDay(testInfo.project.name);
+  const day = visitDay(testInfo);
   await signIn(page, owner);
   const { visits } = await arrangeVisits(page, day, [10, 11, 9], "Drag");
   const [moving, blocking, stretching] = visits;
@@ -128,7 +131,7 @@ test("a dragged visit moves on the server and can be undone, and a clash snaps b
 });
 
 test("the palette finds a customer from part of a phone number", async ({ page }, testInfo) => {
-  const day = visitDay(testInfo.project.name);
+  const day = visitDay(testInfo);
   await signIn(page, owner);
   const { visits } = await arrangeVisits(page, day, [15], "Palette");
   const customer = visits[0].customer;
@@ -147,7 +150,7 @@ test("the palette finds a customer from part of a phone number", async ({ page }
 
 test("the view and date stay in the address, and the daily actions work from the keyboard", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === "phone", "Keyboard shortcuts are for the desktop.");
-  const day = visitDay(testInfo.project.name);
+  const day = visitDay(testInfo);
   await signIn(page, owner);
   const { visits } = await arrangeVisits(page, day, [15.5], "Link");
   await page.goto(`/schedule?date=${day}&view=staff`);
@@ -182,8 +185,6 @@ test("the view and date stay in the address, and the daily actions work from the
   await search.click();
   await search.pressSequentially("nt/?");
   await expect(search).toHaveValue("nt/?");
-  // The search reaches the address a moment after typing stops; a later address write would cancel the N below.
-  await expect(page).toHaveURL(/\/schedule\?.*q=nt/);
   await expect(page.getByRole("dialog")).toHaveCount(0);
 
   await page.locator("body").click({ position: { x: 5, y: 300 } });
@@ -194,11 +195,26 @@ test("the view and date stay in the address, and the daily actions work from the
   await expect(page.getByRole("dialog", { name: "Keyboard shortcuts" })).toHaveCount(0);
   await page.keyboard.press("n");
   await expect(page).toHaveURL(/\/appointments\/new/);
+
+  // N pressed straight after typing still leaves: the search waits 300 ms before it reaches the address, and that
+  // late write must not land during the move and pull the page back to the schedule.
+  // The new-booking page is held back 800 ms, as on a slow connection, so the move is still under way when that write is due.
+  await page.route(/\/appointments\/new/, async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    await route.continue();
+  });
+  await page.goto(`/schedule?date=${day}&view=staff`);
+  await page.getByRole("searchbox", { name: /Search schedule/ }).fill("zz");
+  await page.locator("body").click({ position: { x: 5, y: 300 } });
+  await page.keyboard.press("n");
+  await expect(page).toHaveURL(/\/appointments\/new/);
+  await page.waitForTimeout(1_000);
+  await expect(page).toHaveURL(/\/appointments\/new/);
 });
 
 test("several visits can be cancelled together with a reason", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === "phone", "Choosing several visits is a desktop list feature.");
-  const day = visitDay(testInfo.project.name);
+  const day = visitDay(testInfo);
   await signIn(page, owner);
   const { visits } = await arrangeVisits(page, day, [12, 13], "Bulk");
   await page.goto(`/schedule?date=${day}&view=list`);
@@ -218,7 +234,7 @@ test("several visits can be cancelled together with a reason", async ({ page }, 
 test("several visits can be handed to another staff member, and a clash stays behind with its reason", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === "phone", "Choosing several visits is a desktop list feature.");
   // The day after the others, so the hours are free.
-  const day = new Date(Date.parse(`${visitDay(testInfo.project.name)}T12:00:00Z`) + 86_400_000).toISOString().slice(0, 10);
+  const day = new Date(Date.parse(`${visitDay(testInfo)}T12:00:00Z`) + 86_400_000).toISOString().slice(0, 10);
   await signIn(page, owner);
   await arrangeVisits(page, day, [10], "Cover", "Kavya");
   const { visits } = await arrangeVisits(page, day, [10, 11], "Hand");
@@ -241,7 +257,7 @@ test("several visits can be handed to another staff member, and a clash stays be
 });
 
 test("the schedule fits a 360px phone and reads well in dark mode", async ({ page, context }, testInfo) => {
-  const day = visitDay(testInfo.project.name);
+  const day = visitDay(testInfo);
   await signIn(page, owner);
   await arrangeVisits(page, day, [14], "Phone");
   await page.setViewportSize({ width: 360, height: 740 });
@@ -268,7 +284,7 @@ test("the schedule fits a 360px phone and reads well in dark mode", async ({ pag
 });
 
 test("the day sheet prints one page for each staff member", async ({ page }, testInfo) => {
-  const day = visitDay(testInfo.project.name);
+  const day = visitDay(testInfo);
   await signIn(page, owner);
   const { visits } = await arrangeVisits(page, day, [16], "Sheet");
   await page.goto(`/print/day?date=${day}`);

@@ -1,6 +1,6 @@
 "use client";
 
-import { debounce } from "nuqs";
+import { debounce, defaultRateLimit } from "nuqs";
 import { ListFilter, MoreHorizontal, Plus, Printer, SlidersHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -219,8 +219,15 @@ export function ScheduleWorkspace() {
   const todayKey = database ? clinicDateKey(new Date().toISOString()) : defaultDay;
   const stepDate = (direction: -1 | 1) => goTo(stepDateKey(dateKey, listMode ? "list" : view, stepsByWeek ? "week" : "day", direction));
 
+  // The search box writes to the address 300 ms after typing stops. Leaving before then, that late write would land
+  // during the navigation and cancel it, so write it now (an undelayed write drops the waiting one), then leave.
+  async function leaveTo(href: string) {
+    await setUrl({ q: search || null }, { history: "replace", limitUrlUpdates: defaultRateLimit });
+    router.push(href);
+  }
+
   usePageShortcuts({
-    new: () => router.push(`/appointments/new?${context.toString()}`),
+    new: () => void leaveTo(`/appointments/new?${context.toString()}`),
     today: () => goTo(todayKey),
     previous: () => stepDate(-1),
     next: () => stepDate(1),
@@ -256,7 +263,7 @@ export function ScheduleWorkspace() {
         params.set("action", appointment.status === "requested" ? "suggest" : "reschedule");
         params.set("start", startsAt);
         params.set("practitioner", event.practitionerId);
-        router.push(`/appointments/${appointment.id}?${params.toString()}`);
+        void leaveTo(`/appointments/${appointment.id}?${params.toString()}`);
         return;
       }
       const version = versions.get(appointment.id);

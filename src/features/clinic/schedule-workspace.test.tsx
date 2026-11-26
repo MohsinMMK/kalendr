@@ -84,12 +84,13 @@ describe("staff Schedule workflow", () => {
     expect(window.sessionStorage.getItem("kalendr-preview-appointments-v1")).toBeNull();
   });
 
-  it("sends a dragged visit to review without changing it", () => {
+  it("sends a dragged visit to review without changing it", async () => {
     renderSchedule("?date=2026-08-31&view=staff");
     const events = calendar.props.events as ClinicEvent[];
     const visit = events.find((event) => event.id === "apt_priya_cleaning")!;
     act(() => calendar.props.onEventsChange?.(events.map((event) => event.id === visit.id ? { ...event, start: "2026-08-31T15:00:00+05:30", end: "2026-08-31T15:45:00+05:30" } : event)));
-    expect(push).toHaveBeenCalledOnce();
+    // It leaves once any search still waiting has reached the address.
+    await waitFor(() => expect(push).toHaveBeenCalledOnce());
     const url = new URL(push.mock.calls[0][0] as string, "http://localhost");
     expect(url.pathname).toBe("/appointments/apt_priya_cleaning");
     expect(url.searchParams.get("action")).toBe("reschedule");

@@ -248,11 +248,18 @@ describeIsolated("smart waitlist (feature 21) against a real database", () => {
     await reset();
     // The next local hour boundary (India is half an hour off UTC) at least a minute away (bookings need no lead time), so under two hours away.
     // The day closes at 23:59 and a visit is an hour, so 23:00 can never be booked; take the hour after it instead.
-    const lastBoundary = Math.floor((Date.now() - 30 * 60_000) / 3_600_000) * 3_600_000 + 30 * 60_000;
+    // In the last minute before 22:00 that hour is over two hours away, so wait out the minute (it then is under two).
     const localHour = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", hour: "2-digit", hourCycle: "h23" });
-    const soon = [1, 2, 3].map((hours) => new Date(lastBoundary + hours * 3_600_000))
-      .find((time) => time.getTime() - Date.now() >= 60_000 && localHour.format(time) !== "23")!;
-    expect(soon.getTime() - Date.now()).toBeLessThan(2 * 3_600_000);
+    const nextBookableHour = () => {
+      const lastBoundary = Math.floor((Date.now() - 30 * 60_000) / 3_600_000) * 3_600_000 + 30 * 60_000;
+      return [1, 2, 3].map((hours) => new Date(lastBoundary + hours * 3_600_000))
+        .find((time) => time.getTime() - Date.now() >= 60_000 && time.getTime() - Date.now() < 2 * 3_600_000 && localHour.format(time) !== "23");
+    };
+    let soon = nextBookableHour();
+    while (!soon) {
+      await new Promise((resolve) => setTimeout(resolve, 5_000));
+      soon = nextBookableHour();
+    }
     const entry = await wait(await person("Soon"), { from: 0, to: 2 });
     const closeBooking = await book("soon-" + randomUUID().slice(0, 6) + "@example.com", soon);
     await cancel(closeBooking.manageToken);
@@ -268,7 +275,8 @@ describeIsolated("smart waitlist (feature 21) against a real database", () => {
     await cancel(offBooking.manageToken);
     expect(await offersFor(offEntry)).toHaveLength(0);
     expect(await visible(offSlot)).toBe(true);
-  });
+    // Room for the one-minute wait above, on the one night minute it is needed.
+  }, 90_000);
 
   it("never sends at night: an offer made at 2 am waits for opening time, keeps the hold meanwhile, and the cascade starts when it opens", async () => {
     await reset();

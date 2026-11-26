@@ -257,6 +257,14 @@ export function describeActivity(
       return { summary: `Changed what ${name} can do`, changes: accessChanges(metadata, profile) };
     case "staff.member.job_title_changed":
       return { summary: `Changed ${name}'s job title`, changes: [] };
+    case "staff.member.locations_changed": {
+      // The row keeps location ids only (an empty list means every location), so the sentence counts them.
+      const locations = fromTo(metadata.locations);
+      const count = (ids: unknown) => Array.isArray(ids) && ids.length
+        ? `${ids.length} ${ids.length === 1 ? t.location : t.locations}`
+        : `Every ${t.location}`;
+      return { summary: `Changed which ${t.locations} ${name} works at`, changes: locations ? [`${t.Locations}: ${count(locations.from)} → ${count(locations.to)}`] : [] };
+    }
     case "staff.member.activated":
       return { summary: `Reactivated ${name}`, changes: accessChanges(metadata, profile) };
     case "staff.member.deactivated":

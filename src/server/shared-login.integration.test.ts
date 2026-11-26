@@ -280,8 +280,13 @@ describeLocal("one login, many businesses", () => {
       const auditCount = async () => (await owner<{ n: number }[]>`select count(*)::int as n from audit_events where tenant_id = ${b.id}`)[0]!.n;
       const rowBefore = await teamRow();
       const auditsBefore = await auditCount();
+      const linkBusiness = async () => (await owner<{ name: string }[]>`select name from kalendr_staff_invite_business(${invited.membershipId})`).map((row) => row.name);
+      expect(await linkBusiness()).toHaveLength(1);
 
       expect((await route(declineRoute, invited.membershipId, await signIn(shared.email))).status).toBe(200);
+
+      // The link page's lookup skips a declined invite on its own, not only because declining deletes the link's token.
+      expect(await linkBusiness()).toEqual([]);
 
       expect(await listMyInvites(shared.userId)).toEqual([]);
       expect(await teamRow()).toEqual(rowBefore);

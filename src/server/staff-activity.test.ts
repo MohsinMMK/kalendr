@@ -41,6 +41,15 @@ describe("describeActivity", () => {
     expect(describeActivity("staff.profile.updated", { self: true, name: "Asha Rao", changed: ["jobTitle"] }).summary).not.toMatch(/jobTitle/);
   });
 
+  it("says which locations changed, counted, since the row keeps ids only", () => {
+    expect(describeActivity("staff.member.locations_changed", { name: "Asha Rao", locations: { from: [], to: ["loc_a"] } })).toEqual({
+      summary: "Changed which locations Asha Rao works at",
+      changes: ["Locations: Every location → 1 location"],
+    });
+    expect(describeActivity("staff.member.locations_changed", { name: "Asha Rao", locations: { from: ["loc_a"], to: ["loc_a", "loc_b"] } }).changes)
+      .toEqual(["Locations: 1 location → 2 locations"]);
+  });
+
   it("describes self-service profile edits", () => {
     expect(describeActivity("staff.practitioner.updated", { self: true, name: "Dr Iyer", changed: ["hours"] }).summary).toBe("Updated their own working hours");
     expect(describeActivity("staff.profile.updated", { self: true, name: "Asha", changed: ["name"] }).summary).toBe("Updated their own profile");

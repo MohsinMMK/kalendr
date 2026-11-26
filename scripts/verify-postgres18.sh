@@ -73,5 +73,6 @@ NODE_ENV=development DATABASE_URL="$runtime_url" KALENDR_TEST_OWNER_URL="$owner_
   src/server/waitlist-offers.integration.test.ts src/server/waitlist-staff.integration.test.ts src/server/approval.integration.test.ts src/server/cancel-policy.integration.test.ts src/server/bookings-list.integration.test.ts src/server/slot-engine \
   src/server/api-v1.integration.test.ts src/server/api-keys-admin.integration.test.ts src/worker/webhooks.integration.test.ts \
   src/server/imports/imports.integration.test.ts src/server/imports/imports-bookings.integration.test.ts \
-  src/server/spam.integration.test.ts src/server/special-links.integration.test.ts src/server/service-templates.integration.test.ts src/server/calendar-wording.integration.test.ts
+  src/server/spam.integration.test.ts src/server/special-links.integration.test.ts src/server/service-templates.integration.test.ts src/server/calendar-wording.integration.test.ts \
+  src/server/shared-login.integration.test.ts
 printf 'PostgreSQL 18.6 migration, runtime isolation, appointment, worker, email, protected-storage and rate-limit integration acceptance passed.\n'
