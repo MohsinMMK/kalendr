@@ -44,7 +44,9 @@ Neither reveals versions, names or internals. `/api/ready` returns only `ready` 
 Done once per database, by a superuser or the database's admin role. Use long random passwords from your secret manager.
 
 ```sql
-CREATE ROLE kalendr_owner LOGIN PASSWORD '…';      -- owns the schema; used only by the release step
+-- The owner runs the migrations. FORCE ROW LEVEL SECURITY applies to a table's owner too,
+-- so the release step needs BYPASSRLS to backfill rows; the app and the worker never have it.
+CREATE ROLE kalendr_owner LOGIN PASSWORD '…' BYPASSRLS NOSUPERUSER;     -- owns the schema; used only by the release step
 CREATE ROLE kalendr_app LOGIN PASSWORD '…' NOBYPASSRLS NOSUPERUSER;     -- the web app
 CREATE ROLE kalendr_worker LOGIN PASSWORD '…' NOBYPASSRLS NOSUPERUSER;  -- the outbox worker
 CREATE DATABASE kalendr OWNER kalendr_owner;
