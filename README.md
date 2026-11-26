@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/MohsinMMK/kalendr/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MohsinMMK/kalendr/actions/workflows/ci.yml)
 
-**Live at [kalendr.khanect.com](https://kalendr.khanect.com).** Business sign-up opens once email delivery is set up.
+**Live at [kalendr.khanect.com](https://kalendr.khanect.com).** Businesses can sign up at [kalendr.khanect.com/start](https://kalendr.khanect.com/start).
 
 Kalendr is a production-shaped appointment web application for small appointment-led businesses of any kind: clinics and dental practices, salons, spas and gyms, estate agencies, consultants and other professional firms, shops, tutors and coaching centres, and anything else that runs on bookings. It gives customers a calm self-service booking and manage-booking experience, and gives the business team one responsive workspace for approvals, schedules, resources, waitlists, arrivals, follow-ups, and booking forms.
 
