@@ -14,6 +14,7 @@ import {
   FrameTitle,
 } from "@/components/ui/frame";
 import { StaffSignIn } from "@/features/clinic/staff-auth-controls";
+import { Brand } from "@/features/marketing/brand";
 import { authIsConfigured, enabledSocialProviders } from "@/lib/auth";
 import { isPreviewMode } from "@/server/preview-repository";
 
@@ -46,9 +47,7 @@ export default async function StaffSignInPage({ searchParams }: { searchParams: 
       />
 
       <header className="flex h-14 shrink-0 items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="font-heading text-lg font-semibold text-foreground no-underline">
-          kalendr
-        </Link>
+        <Brand size={22} className="text-lg" />
         <Button variant="ghost" size="sm" render={<Link href="/start" />}>
           Get started
         </Button>

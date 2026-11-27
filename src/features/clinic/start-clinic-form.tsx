@@ -28,6 +28,7 @@ import { RadioGroup } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Brand } from "@/features/marketing/brand";
 import { authClient } from "@/lib/auth-client";
 import { isClinicalBusinessType, type BusinessTypeId } from "@/lib/business-types";
 import { parseClinicSlug, slugFromName } from "@/lib/clinic-slug";
@@ -665,9 +666,7 @@ export function StartClinicForm({
     <div className="flex h-dvh overflow-hidden bg-background">
       <div className="flex min-w-0 flex-1 flex-col lg:max-w-[50%]">
         <header className="flex h-14 shrink-0 items-center justify-between gap-3 px-4 sm:px-8">
-          <Link href="/" className="font-heading text-lg font-semibold text-foreground no-underline">
-            kalendr
-          </Link>
+          <Brand size={22} className="text-lg" />
           {preview ? (
             <span className="text-xs text-muted-foreground">Preview: nothing is saved</span>
           ) : (
