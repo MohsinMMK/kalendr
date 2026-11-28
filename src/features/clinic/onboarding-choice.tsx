@@ -23,6 +23,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { BookingBottomBar } from "@/features/booking/booking-bottom-bar";
 import { BookingProgress } from "@/features/booking/booking-progress";
+import { Brand } from "@/features/marketing/brand";
 import { cn } from "@/lib/utils";
 
 /** How long a tapped choice stays on screen before the next one, as in the booking flow. */
@@ -62,12 +63,7 @@ export function OnboardingFrame({
     <div className="flex min-h-dvh min-w-0 flex-col bg-background">
       <header className="flex h-14 shrink-0 items-center justify-between gap-3 border-b px-4 sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
-          <Link
-            href="/"
-            className="font-heading text-lg font-semibold text-foreground no-underline"
-          >
-            kalendr
-          </Link>
+          <Brand size={22} className="text-lg" />
           {preview ? <Badge variant="outline">Preview</Badge> : null}
         </div>
         {signedIn ? null : (
